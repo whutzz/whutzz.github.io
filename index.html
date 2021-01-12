@@ -138,6 +138,148 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-操作系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><blockquote>
+<p>进程的定义</p>
+</blockquote>
+<p>程序段、数据段、pcb组成了进程实体（进程映像）。一般情况下，把进程实体称作进程。</p>
+<p>（pcb：进程控制块，用来描述进程的各种信息）</p>
+<p>所谓创建进程就是创建进程实体中的pcb，撤销进程也是撤销pcb。</p>
+<p>所以，<strong>pcb是进程存在的唯一标志</strong></p>
+<p><strong>定义</strong> ：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。</p>
+<blockquote>
+<p>进程的组成</p>
+</blockquote>
+<p>上面提到了程序段、数据段、pcb组成了进程实体（进程映像）。</p>
+<p>其中程序段、数据段包含程序运行所需要的数据</p>
+<p>pcb则是便于操作系统管理的一些进程信息。</p>
+<blockquote>
+<p>进程的组织方式</p>
+</blockquote>
+<ol>
+<li><p>链接方式</p>
+<p>处于就绪或者阻塞状态下的进程，他们的pcb位置通过链表的形式连接</p>
+<p><img src="https://github.com/whutzz/whutzz.github.io/blob/master/asserts/image-20210112123405179.jpg" alt="image-20210112123405179"></p>
+</li>
+<li><p>索引方式</p>
+<p>与链接方式不同的是，就绪指针指向的不是一个链表，而是一个索引表，索引表对应着每个进程的pcb</p>
+</li>
+</ol>
+<p><img src="https://github.com/whutzz/whutzz.github.io/blob/master/asserts/image-20210112123617370.jpg" alt="image-20210112123617370"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-计网学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="dns系统"><a href="#dns系统" class="headerlink" title="dns系统"></a>dns系统</h2><blockquote>
+<p>dns系统概述</p>
+</blockquote>
+<p>域名系统DNS（domain name system）是因特网使用的命名系统，用来把便于人们记忆的含有特定含义的主机名转换为便于机器处理的IP地址，值得注意的是，<strong>DNS系统采用C/S架构</strong>，<strong>其协议运行在UDP之上，使用53号端口</strong>。<br>DNS分为三个部分，层次域名空间，域名服务器和解析器。</p>
+<blockquote>
+<p>层次域名空间</p>
+</blockquote>
+<ol>
+<li>根域名服务器</li>
+<li>顶级域名服务器</li>
+<li>权限域名服务器</li>
+<li>本地域名服务器</li>
+</ol>
+<blockquote>
+<p>域名解析过程</p>
+</blockquote>
+<p>域名解析也就是把域名映射成IP地址或者把IP地址映射成为域名的过程。前者称为正向解析，后者称为反向解析。当客户端需要域名解析时，通过本机的DNS客户端构造一个DNS请求报文，以UDP数据报方式发往本地域名服务器。</p>
+<p>域名解析有两种方式：<strong>递归查询和迭代查询</strong></p>
+<p>递归查询说白了就是靠别人去帮你查，你把域名丢给本地域名服务器，本地域名服务器就丢给对应的根域名服务器，依次类推，最后返回给本地域名服务器。</p>
+<p>而迭代查询就是靠自己去查了，本地域名服务器先是访问根域名服务器，根域名服务器返回一个顶级域名服务器给本地域名服务器，然后本地域名服务器再去对应的顶级域名服务器查找，依次往后查找。</p>
+<p>一般域名服务器都会有个<strong>高速缓存</strong>，本地域名服务器会缓存一些你经常访问的域名，并定时更新。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/12/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-用hexo搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
