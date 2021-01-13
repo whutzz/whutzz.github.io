@@ -19,8 +19,12 @@
 <meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112123617370.jpg">
 <meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112171824812.png">
 <meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112173617997.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113095836261.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113105642623.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113112833460.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113113025416.png">
 <meta property="article:published_time" content="2021-01-12T05:37:13.000Z">
-<meta property="article:modified_time" content="2021-01-12T12:45:04.818Z">
+<meta property="article:modified_time" content="2021-01-13T04:08:24.200Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112123405179.jpg">
@@ -268,6 +272,37 @@
 <p>该算法结合了上面几种算法的优点，兼具公平，不失效率。（会导致饥饿）</p>
 </li>
 </ol>
+<h2 id="进程互斥的软件实现方法"><a href="#进程互斥的软件实现方法" class="headerlink" title="进程互斥的软件实现方法"></a>进程互斥的软件实现方法</h2><ol>
+<li><p>单标志法</p>
+<p>两个进程再访问完临界区后会把使用临界区的权限转交给下一个进程，也就是说每个进程对临界区的访问权限只能由另一个进程赋予。</p>
+<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113095836261.png" alt="image-20210113095836261"></p>
+<p>但是当p0进程没有访问临界区但p1进程想要访问临界区时，p1进程会一直阻塞，违背了“空闲让进”原则。</p>
+</li>
+<li><p>双标志检测法</p>
+<p>设置一个flag数组，flag[i]表示进程i是否在访问临界区，每当一个进程要访问临界区时就判断flag数组里面有没有在访问临界区的进程，如果有，则等待，若没有，则将自己的flag=1，然后访问临界区。</p>
+<p>注意：当两个进程同时判断时，又同时没有在访问临界区的进程，则两个进程会同时进入临界区。违反了“忙则等待”原则。</p>
+</li>
+<li><p>双标志后检查法</p>
+<p>原理与双标志检查法类似，主要不同在于双标志先检查法时先检查后设置，双标志后检查法先设置后检查。</p>
+<p>这样也会存在一定问题，当两个进程同时设置，那么两个进程都无法访问到临界区，从而产生饥饿。</p>
+</li>
+<li><p>Peterson算法</p>
+<p>结合了单标志法和双标志法，每个想进入临界区的进程都会礼让其他进程，这就会让最后一个礼让行为结束后只有一个进程进入临界区，且不会导致多个进程同时进入和都不能进入的问题。</p>
+<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113105642623.png" alt="image-20210113105642623"></p>
+<p>这种方式还是会浪费处理机资源（while一直判断直到时间片结束）</p>
+</li>
+</ol>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>信号量其实就是一个变量（可以是一个整数或者一个结构体）</p>
+<p>在上面的双标记先检查法中唯一的不足就是检查和设置操作不是原子性，导致可能多个进程同时进入临界区。</p>
+<p><strong>而原语正好解决了这一问题，利用wait(s),signal(s),来处理进入区的操作即可保证原子性。</strong>（s为信号量，表示临界区可访问的进程数目）</p>
+<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113112833460.png" alt="image-20210113112833460"></p>
+<p><strong>这样解决了同时进入的问题，但还是会存在处理机资源的浪费问题。</strong></p>
+<p>所以我们将信号量从整型升级为一个结构体。</p>
+<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113113025416.png" alt="image-20210113113025416"></p>
+<p>process *L表示的一个阻塞队列，value表示剩余资源数目，每当一个进程想访问临界区时，value就会减少1，当value&lt;0时表示已经没有临界区资源了，那么就将此进程放入阻塞队列中，这样就不会浪费处理机的资源了。</p>
+<p><strong>信号量还可以解决进程间的同步和前驱问题</strong></p>
+<p>信号量的初始值为0.先执行的进程中加入signal(s)，后执行的进程中加入wait(s),这样就可以让两个进程有序执行（必定要先执行signal再执行wait）</p>
+<p>前驱问题只要在每个前驱关系中加入一个信号量即可。</p>
 <p><em>内容来自：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YE411D7nH">https://www.bilibili.com/video/BV1YE411D7nH</a></em></p>
 
       
