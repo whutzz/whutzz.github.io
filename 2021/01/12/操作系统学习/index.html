@@ -28,8 +28,9 @@
 <meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113194711158.png">
 <meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113194956099.png">
 <meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113195540119.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114213640451.png">
 <meta property="article:published_time" content="2021-01-12T05:37:13.000Z">
-<meta property="article:modified_time" content="2021-01-13T11:56:28.665Z">
+<meta property="article:modified_time" content="2021-01-14T13:49:54.782Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112123405179.jpg">
@@ -326,6 +327,20 @@
 <p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113194956099.png" alt="image-20210113194956099"></p>
 <p>段页式管理中，既存在段表也存在页表，段表中每个段表项存储其页表长度和页表存放块号，每个页表中由页号、页面存放的内存块号组成。</p>
 <p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113195540119.png" alt="image-20210113195540119"></p>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>虚拟内存是操作系统的一个内存管理方式，与传统的内存管理方式不同的是，<strong>虚拟内存不需要将一个进程的所有数据放入内存中，只需要将一些目前经常访问的数据放入内存即可保证进程的正常运行</strong>。当进程需要的数据不在内存中时，再从外存调入内存，一些不经常访问的数据也会从内存调入外存。</p>
+<h3 id="局部性"><a href="#局部性" class="headerlink" title="局部性"></a>局部性</h3><blockquote>
+<p>时间局部性</p>
+</blockquote>
+<p>时间局部性表示在访问了某个指令或者某个数据后，那么这个指令或者数据很可能再次被访问。（因为程序中存在大量的循环）</p>
+<blockquote>
+<p>空间局部性</p>
+</blockquote>
+<p>空间局部性表示在访问了某个数据后，那么很可能访问这个数据周围的数据。</p>
+<p>（指令都是连续访问，所以基本是可以顺序执行）</p>
+<p><strong>由于局部性原理诞生的高速缓存技术，由于局部数据可能大量访问，所以可以将这些数据放入高速缓存区中，加快读取效率。</strong></p>
+<h3 id="请求分页管理"><a href="#请求分页管理" class="headerlink" title="请求分页管理"></a>请求分页管理</h3><p>请求分页管理技术是在分页管理的基础上增加了虚拟内存技术。其相应的页表也会发生变化。</p>
+<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114213640451.png" alt="image-20210114213640451"></p>
+<p>若访问的内存块状态位为0，即没调入内存，那么该进程就会阻塞，等待调页完成后再将其唤醒。若内存中此时有空闲的内存块，那么就将要访问的内存块调入该空闲区域，若此时没有空闲区域，那就实行页面置换算法选择一个内存被置换，若该内存块被修改过还要写入外存。（<strong>这里是请求分页在普通分页的基础上新增加的部分</strong>）</p>
 <p><em>内容来自：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YE411D7nH">https://www.bilibili.com/video/BV1YE411D7nH</a></em></p>
 
       
