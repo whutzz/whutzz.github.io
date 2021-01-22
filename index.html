@@ -138,6 +138,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JUC学习（五）-函数式接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">JUC学习（五）-函数式接口以及流式计算</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  	<time datetime="2021-01-22T05:01:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="四大函数式接口"><a href="#四大函数式接口" class="headerlink" title="四大函数式接口"></a>四大函数式接口</h1><h2 id="Function接口"><a href="#Function接口" class="headerlink" title="Function接口"></a>Function接口</h2><p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/image-20210122135616576.png" alt="image-20210122135616576"></p>
+<p>传入参数类型T返回参数类型R</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Function function = (str)-&gt;&#123; <span class="keyword">return</span> str;&#125;;</span><br><span class="line"></span><br><span class="line">        System.out.println(function.apply(<span class="string">&quot;abc&quot;</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Predicate接口"><a href="#Predicate接口" class="headerlink" title="Predicate接口"></a>Predicate接口</h2><p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/image-20210122140413540.png" alt="image-20210122140413540"></p>
+<p>传入参数类型T返回一个boolean类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Predicate predicate =(str)-&gt;&#123;</span><br><span class="line">            <span class="keyword">if</span>(str!=<span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        System.out.println(predicate.test(<span class="string">&quot;abc&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Consumer接口"><a href="#Consumer接口" class="headerlink" title="Consumer接口"></a>Consumer接口</h2><p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/image-20210122140816157.png" alt="image-20210122140816157"></p>
+<p>传入参数类型T没有返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Consumer&lt;String&gt; consumer=(str)-&gt;&#123;</span><br><span class="line">            System.out.println(str);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        consumer.accept(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Supplier接口"><a href="#Supplier接口" class="headerlink" title="Supplier接口"></a>Supplier接口</h2><p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/image-20210122141035032.png" alt="image-20210122141035032"></p>
+<p>没有传入参数返回参数类型T</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Supplier&lt;String&gt; supplier=()-&gt;&#123;<span class="keyword">return</span> <span class="string">&quot;ok&quot;</span>;&#125;;</span><br><span class="line"></span><br><span class="line">        System.out.println(supplier.get());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="流式计算"><a href="#流式计算" class="headerlink" title="流式计算"></a>流式计算</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        User u1=<span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">&quot;u1&quot;</span>,<span class="number">21</span>);</span><br><span class="line">        User u2=<span class="keyword">new</span> User(<span class="number">2</span>,<span class="string">&quot;u2&quot;</span>,<span class="number">22</span>);</span><br><span class="line">        User u3=<span class="keyword">new</span> User(<span class="number">3</span>,<span class="string">&quot;u3&quot;</span>,<span class="number">22</span>);</span><br><span class="line">        User u4=<span class="keyword">new</span> User(<span class="number">4</span>,<span class="string">&quot;u4&quot;</span>,<span class="number">23</span>);</span><br><span class="line">        User u5=<span class="keyword">new</span> User(<span class="number">5</span>,<span class="string">&quot;u5&quot;</span>,<span class="number">25</span>);</span><br><span class="line">        User u6=<span class="keyword">new</span> User(<span class="number">6</span>,<span class="string">&quot;u6&quot;</span>,<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">        List&lt;User&gt; list =<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(u1);</span><br><span class="line">        list.add(u2);</span><br><span class="line">        list.add(u3);</span><br><span class="line">        list.add(u4);</span><br><span class="line">        list.add(u5);</span><br><span class="line">        list.add(u6);</span><br><span class="line"></span><br><span class="line">        list.stream()</span><br><span class="line">                .filter((u)-&gt;&#123;<span class="keyword">return</span> u.getId()%<span class="number">2</span>==<span class="number">0</span>;&#125;)</span><br><span class="line">                .forEach(System.out::println);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用stream来计算（filter过滤，其中式Predicate接口）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JUC学习（四）-线程池" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -195,6 +277,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize, //核心线程数量</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize, // 最大线程数量</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,//超时释放（存活时间）</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,//单位</span></span></span><br><span class="line"><span class="function"><span class="params">                        BlockingQueue&lt;Runnable&gt; workQueue,//阻塞队列</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,//线程工厂</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler//拒绝策略</span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>实际开发中使用ThreadPoolExecutor创建线程池！！！</strong></p>
 <p>核心线程数一直开放，核心线程池满了则进入阻塞队列，阻塞队列满了则开放最大线程池中的一部分，当阻塞队列空了，且非核心区域已经达到超时释放时间没有接到任务，那么他就会被释放。</p>
+<blockquote>
+<p>最大线程数目怎么定义</p>
+</blockquote>
+<p>1.cpu密集型：将最大线程数目定义为电脑cpu的核数</p>
+<p>2.io密集型：将最大线程数目定义为大于需要io设备的数目</p>
 <h1 id="四种拒绝策略"><a href="#四种拒绝策略" class="headerlink" title="四种拒绝策略"></a>四种拒绝策略</h1><blockquote>
 <p>AbortPolicy()直接抛出异常不处理</p>
 </blockquote>
@@ -1194,73 +1281,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-01-11T09:44:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<p>##参考文献<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty?from=search&amp;seid=15936694823282570499">https://www.bilibili.com/video/BV1Yb411a7ty?from=search&amp;seid=15936694823282570499</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
         </p>
       
 
