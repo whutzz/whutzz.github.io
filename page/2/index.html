@@ -138,6 +138,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo搭建个人博客</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
+  	<time datetime="2021-01-12T11:27:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="用hexo搭建个人博客"><a href="#用hexo搭建个人博客" class="headerlink" title="用hexo搭建个人博客"></a>用hexo搭建个人博客</h3><blockquote>
+<p>1、首先安装node.js</p>
+</blockquote>
+<p>node.js中文下载网站：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a></p>
+<p>用cmd页面下输入node -v 和 npm -v 出现一下界面即安装成功。</p>
+<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111201343306.png" alt="image-20210111201343306"></p>
+<p>嫌npm下载慢的可以下载阿里的cnpm</p>
+<p>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a></p>
+<blockquote>
+<p>2、安装hexo</p>
+</blockquote>
+<p>cnpm install -g hexo-cli</p>
+<p>安装完成后输入hexo -v</p>
+<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111201857192.png" alt="image-20210111201857192"></p>
+<p>说明安装完成</p>
+<blockquote>
+<p>3、然后新建一个文件夹（个人博客文件夹），并进入改文件夹，初始化该文件夹</p>
+</blockquote>
+<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111202054224.png" alt="image-20210111202054224"></p>
+<p>然后在该文件夹下hexo init（初始化hexo）</p>
+<blockquote>
+<p>4、启动hexo</p>
+</blockquote>
+<p>此时hexo已经在本地搭建完成，可以hexo s启动并在localhost:4000查看。</p>
+<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111202245353.png" alt="image-20210111202245353"></p>
+<p>关于hexo指令我就不一一介绍了，大家可以百度查找。</p>
+<blockquote>
+<p>5、远端部署（github）</p>
+</blockquote>
+<p>首先修改_config.yml文件</p>
+<p>把deploy部分改成以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ldeploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;yourgithubname&#x2F;yourgithubname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>修改完之后hexo g更新一个文件</p>
+<p>github上新建一个repo，名字为yourgithubname.github.io.</p>
+<p>此时下载一个git的脚本cnpm install –save hexo-deployer-git</p>
+<p>不然推送到远端会出错。</p>
+<p>然后hexo d推送到远端即可。</p>
+<p>用yourgithubname.github.io即可访问你的个人博客</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-dns系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

@@ -138,6 +138,167 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/24/JVM/">JVM</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/24/JVM/" class="archive-article-date">
+  	<time datetime="2021-01-24T03:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h1><h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p>加载是类加载过程中的一个阶段，这个阶段会在内存中生成一个代表这个类的java.lang.Class 对 象，作为<strong>方法区</strong>这个类的各种数据的入口。注意这里不一定非得要从一个 Class 文件获取，这里既可以从 ZIP 包中读取（比如从 jar 包和 war 包中读取），也可以在运行时计算生成（<strong>动态代理</strong>），也可以由其它文件生成（比如将 JSP 文件转换成对应的 Class 类）。</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>这一阶段的主要目的是为了确保 Class 文件的字节流中包含的信息是否符合当前虚拟机的要求，并且不会危害虚拟机自身的安全。（可能字节码文件被篡改）</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>准备阶段是正式为类变量分配内存并设置类变量的初始值阶段，即在方法区中分配这些变量所使用的内存空间。这次初始化值都设为0，final修饰的变量记为常量并附上该有的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> b=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>在这个阶段a的值为0，b的值为1.</p>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>解析阶段是指虚拟机将常量池中的符号引用替换为直接引用的过程。</p>
+<ul>
+<li><p>符号引用</p>
+<p>符号引用与虚拟机实现的布局无关，引用的目标并不一定要已经加载到内存中。各种虚拟机实现的内存布局可以各不相同，但是它们能接受的符号引用必须是一致的，因为符号引用的字面量形式明确定义在 Java 虚拟机规范的 Class 文件格式中。</p>
+</li>
+<li><p>直接引用</p>
+<p>直接引用可以是指向目标的指针，相对偏移量或是一个能间接定位到目标的句柄。如果有了直接引用，那引用的目标必定已经在内存中存在。</p>
+</li>
+</ul>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>初始化阶段是执行类构造器<client>方法的过程。<client>方法是由编译器自动收集类中的类变量的赋值操作和静态语句块中的语句合并而成的。虚拟机会保证子<client>方法执行之前，父类的<client>方法已经执行完毕，<strong>如果一个类中没有对静态变量赋值也没有静态语句块，那么编译器可以不为这个类生成<client>()方法</client></strong>。</client></client></client></client></p>
+<p><strong>注意以下几种情况不会执行类初始化</strong>：</p>
+<p>1、 通过子类引用父类的静态字段，只会触发父类的初始化，而不会触发子类的初始化。</p>
+<p>2、 定义对象数组，不会触发该类的初始化。</p>
+<p>3、 常量在编译期间会存入调用类的常量池中，本质上并没有直接引用定义常量的类，不会触</p>
+<p>发定义常量所在的类。</p>
+<p>4、 <strong>通过类名获取 Class 对象，不会触发类的初始化</strong>。</p>
+<p>5、 通过 Class.forName 加载指定类时，如果指定参数 initialize 为 false 时，也不会触发类初始化，其实这个参数是告诉虚拟机，是否要对类进行初始化。</p>
+<p>6、 通过 ClassLoader 默认的 loadClass 方法，也不会触发初始化动作。</p>
+<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p>类加载器在本质上分为两种：<strong>引导类加载器和自定义类加载器</strong></p>
+<p>但一般我们把类加载器分为四类：</p>
+<ul>
+<li>引导类加载器（ClassLoader)</li>
+<li>扩展类加载器(ExtClassLoader)</li>
+<li>应用类加载器(AppClassLoader)</li>
+<li>自定义类加载器</li>
+</ul>
+<p><strong>其中扩展类加载器和应用类加载器都间接继承引导类加载器</strong>。</p>
+<p><img src="/2021/01/24/JVM/image-20210124122025011.png" alt="image-20210124122025011"></p>
+<h2 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h2><p>当一个类收到了类加载请求，他首先不会尝试自己去加载这个类，而是把这个请求委派给父类去完成，每一个层次类加载器都是如此，因此所有的加载请求都应该传送到启动类加载其中，只有当父类加载器反馈自己无法完成这个请求的时候（在它的加载路径下没有找到所需加载的Class），子类加载器才会尝试自己去加载。</p>
+<p>采用双亲委派的一个好处是比如加载位于 rt.jar 包中的类 java.lang.Object，不管是哪个加载器加载这个类，最终都是委托给顶层的启动类加载器进行加载，这样就保证了使用不同的类加载器最终得到的都是同样一个 Object 对象。</p>
+<ul>
+<li>避免重复加载</li>
+<li>保护程序安全，防止核心API被随意篡改</li>
+</ul>
+<h1 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h1><p><img src="/2021/01/24/JVM/image-20210124133847974.png" alt="image-20210124133847974"></p>
+<p>堆区和元数据区是进程公用的区域，栈区和程序技术器是每个进程独有的区域。</p>
+<h1 id="GC问题"><a href="#GC问题" class="headerlink" title="GC问题"></a>GC问题</h1><h2 id="如何判断对象已经死亡"><a href="#如何判断对象已经死亡" class="headerlink" title="如何判断对象已经死亡"></a>如何判断对象已经死亡</h2><ul>
+<li><p><strong>引用计数法</strong></p>
+<p>给对象中添加一个引用计数器，每当有一个地方引用它，计数器就加 1；当引用失效，计数器就减 1；任何时候计数器为 0 的对象就是不可能再被使用的。</p>
+<p><strong>这个方法实现简单，效率高，但是目前主流的虚拟机中并没有选择这个算法来管理内存，其最主要的原因是它很难解决对象之间相互循环引用的问题。</strong> 所谓对象之间的相互引用问题</p>
+</li>
+<li><p><strong>可达性分析算法</strong></p>
+<p>这个算法的基本思想就是通过一系列的称为 <strong>“GC Roots”</strong> 的对象作为起点，从这些节点开始向下搜索，节点所走过的路径称为引用链，当一个对象到 GC Roots 没有任何引用链相连的话，则证明此对象是不可用的。</p>
+</li>
+</ul>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>无论是通过引用计数法判断对象引用数量，还是通过可达性分析法判断对象的引用链是否可达，判定对象的存活都与“引用”有关。</p>
+<ul>
+<li><strong>强引用</strong></li>
+</ul>
+<p>以前我们使用的大部分引用实际上都是强引用，这是使用最普遍的引用。如果一个对象具有强引用，那就类似于<strong>必不可少的生活用品</strong>，<strong>垃圾回收器绝不会回收它</strong>。当内存空间不足，Java 虚拟机宁愿抛出 OutOfMemoryError 错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
+<ul>
+<li><strong>软引用</strong></li>
+</ul>
+<p>如果一个对象只具有软引用，那就类似于<strong>可有可无的生活用品</strong>。<strong>如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存</strong>。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
+<p>软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收，JAVA 虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<ul>
+<li><strong>弱引用</strong></li>
+</ul>
+<p>如果一个对象只具有弱引用，那就类似于<strong>可有可无的生活用品</strong>。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，<strong>一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存</strong>。不过，由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。</p>
+<p>弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java 虚拟机就会把这个弱引用加入到与之关联的引用队列中。</p>
+<ul>
+<li><strong>虚引用</strong></li>
+</ul>
+<p>“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，<strong>虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收</strong>。</p>
+<p><strong>虚引用主要用来跟踪对象被垃圾回收的活动</strong>。</p>
+<p><strong>虚引用与软引用和弱引用的一个区别在于：</strong> 虚引用必须和<strong>引用队列</strong>（ReferenceQueue）联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。程序如果发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。</p>
+<p>特别注意，在程序设计中一般很少使用弱引用与虚引用，使用软引用的情况较多，这是因为<strong>软引用可以加速 JVM 对垃圾内存的回收速度，可以维护系统的运行安全，防止内存溢出（OutOfMemory）等问题的产生</strong>。</p>
+<h2 id="如何判断一个类是不是无用类"><a href="#如何判断一个类是不是无用类" class="headerlink" title="如何判断一个类是不是无用类"></a>如何判断一个类是不是无用类</h2><ul>
+<li>该类所有的实例都已经被回收，也就是 Java 堆中不存在该类的任何实例。</li>
+<li>加载该类的 <code>ClassLoader</code> 已经被回收。</li>
+<li>该类对应的 <code>java.lang.Class</code> 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。</li>
+</ul>
+<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><blockquote>
+<p>标记-清除算法</p>
+</blockquote>
+<p>该算法分为<strong>“标记”和“清除”</strong>阶段：首先标记出所有不需要回收的对象，在标记完成后统一回收掉所有没有被标记的对象。它是最基础的收集算法，后续的算法都是对其不足进行改进得到。这种垃圾收集算法会带来两个明显的问题：</p>
+<ol>
+<li><strong>效率问题</strong></li>
+<li><strong>空间问题（标记清除后会产生大量不连续的碎片）</strong></li>
+</ol>
+<blockquote>
+<p>复制算法</p>
+</blockquote>
+<p>为了解决效率问题，“复制”收集算法出现了。它可以将内存分为大小相同的两块，每次使用其中的一块。当这一块的内存使用完后，就将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉。这样就使每次的内存回收都是对内存区间的一半进行回收。</p>
+<p>但是这样很浪费空间。（至少一半的空间不能使用）</p>
+<blockquote>
+<p>标记-整理算法</p>
+</blockquote>
+<p>根据老年代的特点提出的一种标记算法，标记过程仍然与“标记-清除”算法一样，但后续步骤不是直接对可回收对象回收，而是让所有存活的对象向一端移动，然后直接清理掉端边界以外的内存。</p>
+<blockquote>
+<p>分代收集算法</p>
+</blockquote>
+<p>当前虚拟机的垃圾收集都采用分代收集算法，这种算法没有什么新的思想，只是根据对象存活周期的不同将内存分为几块。一般将 java 堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。</p>
+<p><strong>比如在新生代中，每次收集都会有大量对象死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。而老年代的对象存活几率是比较高的，而且没有额外的空间对它进行分配担保，所以我们必须选择“标记-清除”或“标记-整理”算法进行垃圾收集。</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/24/JVM/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JUC学习（七）-CAS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1004,106 +1165,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/01/13/https%E5%86%85%E5%AE%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo搭建个人博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-01-12T11:27:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="用hexo搭建个人博客"><a href="#用hexo搭建个人博客" class="headerlink" title="用hexo搭建个人博客"></a>用hexo搭建个人博客</h3><blockquote>
-<p>1、首先安装node.js</p>
-</blockquote>
-<p>node.js中文下载网站：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a></p>
-<p>用cmd页面下输入node -v 和 npm -v 出现一下界面即安装成功。</p>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111201343306.png" alt="image-20210111201343306"></p>
-<p>嫌npm下载慢的可以下载阿里的cnpm</p>
-<p>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a></p>
-<blockquote>
-<p>2、安装hexo</p>
-</blockquote>
-<p>cnpm install -g hexo-cli</p>
-<p>安装完成后输入hexo -v</p>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111201857192.png" alt="image-20210111201857192"></p>
-<p>说明安装完成</p>
-<blockquote>
-<p>3、然后新建一个文件夹（个人博客文件夹），并进入改文件夹，初始化该文件夹</p>
-</blockquote>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111202054224.png" alt="image-20210111202054224"></p>
-<p>然后在该文件夹下hexo init（初始化hexo）</p>
-<blockquote>
-<p>4、启动hexo</p>
-</blockquote>
-<p>此时hexo已经在本地搭建完成，可以hexo s启动并在localhost:4000查看。</p>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111202245353.png" alt="image-20210111202245353"></p>
-<p>关于hexo指令我就不一一介绍了，大家可以百度查找。</p>
-<blockquote>
-<p>5、远端部署（github）</p>
-</blockquote>
-<p>首先修改_config.yml文件</p>
-<p>把deploy部分改成以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ldeploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;yourgithubname&#x2F;yourgithubname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>修改完之后hexo g更新一个文件</p>
-<p>github上新建一个repo，名字为yourgithubname.github.io.</p>
-<p>此时下载一个git的脚本cnpm install –save hexo-deployer-git</p>
-<p>不然推送到远端会出错。</p>
-<p>然后hexo d推送到远端即可。</p>
-<p>用yourgithubname.github.io即可访问你的个人博客</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
         </p>
       
 
