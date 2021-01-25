@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>个人博客</title>
+  <title>MySql | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://example.com/page/2/index.html">
+  <meta name="description" content="执行引擎MyISAM和InnoDB的区别MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。 大多数时候我们使用的都是 Inno">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySql">
+<meta property="og:url" content="http://example.com/2021/01/25/MySql/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="执行引擎MyISAM和InnoDB的区别MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。 大多数时候我们使用的都是 Inno">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/25/MySql/imageslim.jpg">
+<meta property="og:image" content="http://example.com/2021/01/25/MySql/imageslim1.jpg">
+<meta property="og:image" content="http://example.com/2021/01/25/MySql/imageslim2.jpg">
+<meta property="og:image" content="http://example.com/2021/01/25/MySql/img3.jpg">
+<meta property="article:published_time" content="2021-01-25T02:51:44.000Z">
+<meta property="article:modified_time" content="2021-01-25T06:51:14.603Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/25/MySql/imageslim.jpg">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -136,634 +145,167 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Linux学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-MySql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/">Linux学习</a>
+    <h1 class="article-title" itemprop="name">
+      MySql
     </h1>
   
 
         
-        <a href="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-01-15T03:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-15</time>
+        <a href="/2021/01/25/MySql/" class="archive-article-date">
+  	<time datetime="2021-01-25T02:51:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h1><p><img src="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/image-20210115131157918.png" alt="image-20210115131157918"></p>
-<h1 id="命令学习"><a href="#命令学习" class="headerlink" title="命令学习"></a>命令学习</h1><h2 id="目录相关命令"><a href="#目录相关命令" class="headerlink" title="目录相关命令"></a>目录相关命令</h2><blockquote>
-<p>绝对路径与相对路径</p>
-</blockquote>
-<p>cd ：切换目录</p>
-<p>./ ： 当前目录</p>
-<p>cd .. : 返回上一级目录</p>
-<p>cd ~: 回到当前用户目录</p>
-<p>pwd ： 查看当前目录（绝对路径）</p>
-<blockquote>
-<p>ls （列出目录）</p>
-</blockquote>
-<p>-a : all , 查看全部文件（包括隐藏文件）</p>
-<p>-l  : 列出所有文件，包括文件属性和权限（没有隐藏文件）</p>
-<p><strong>两者可以组合使用。</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp1hip5y8sud5vvozq8yz home]<span class="comment"># ls -l</span></span><br><span class="line">total 8</span><br><span class="line">drwx------ 3 admin admin 4096 Jan 15 12:07 admin</span><br><span class="line">drwxr-xr-x 2 root  root  4096 Jan 15 13:13 zz</span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz home]<span class="comment"># ls -al</span></span><br><span class="line">total 16</span><br><span class="line">drwxr-xr-x.  4 root  root  4096 Jan 15 13:13 .</span><br><span class="line">dr-xr-xr-x. 19 root  root  4096 Jan 15 12:07 ..</span><br><span class="line">drwx------   3 admin admin 4096 Jan 15 12:07 admin</span><br><span class="line">drwxr-xr-x   2 root  root  4096 Jan 15 13:13 zz</span><br></pre></td></tr></table></figure>
-
-
-<blockquote>
-<p>mkdir (创建一个文件夹) rmdir (删除文件夹)</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># mkdir com</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># ls</span></span><br><span class="line">com</span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># mkdir -p con/zz/javaweb</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># ls</span></span><br><span class="line">com  con</span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># cd con</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz con]<span class="comment"># ls</span></span><br><span class="line">zz</span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz con]<span class="comment"># cd zz</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># ls</span></span><br><span class="line">javaweb</span><br></pre></td></tr></table></figure>
-<p>删除目录前必须清空其中的文件，多级目录删除使用-p参数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># rmdir com</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># ls</span></span><br><span class="line">con</span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># rmdir -p con/zz/javaweb</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># ls</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz zz]<span class="comment"># </span></span><br></pre></td></tr></table></figure>
-
-
-<blockquote>
-<p>cp （复制文件或者目录）</p>
-<p>rm （删除文件）</p>
-<p>mv（移动文件或者目录）</p>
-</blockquote>
-<h1 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h1><p><img src="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/image-20210115135022809.png" alt="image-20210115135022809"></p>
-<p><img src="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/image-20210115135301445.png" alt="image-20210115135301445"></p>
-<p>第一个字母为l表示为一个链接（快捷方式）-&gt;后面对应其实际位置。</p>
-<blockquote>
-<p>chmod [-R] xyz 文件或目录</p>
-</blockquote>
-<p>r:4  w:2  x:1</p>
-<p>chmod 777 代表所有用户可读可写可执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp1hip5y8sud5vvozq8yz home]<span class="comment"># ls -ll</span></span><br><span class="line">total 8</span><br><span class="line">drwx------ 3 admin admin 4096 Jan 15 12:07 admin</span><br><span class="line">drwxr-xr-x 2 root  root  4096 Jan 15 13:37 zz</span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz home]<span class="comment"># chmod 777 zz</span></span><br><span class="line">[root@izbp1hip5y8sud5vvozq8yz home]<span class="comment"># ls -ll</span></span><br><span class="line">total 8</span><br><span class="line">drwx------ 3 admin admin 4096 Jan 15 12:07 admin</span><br><span class="line">drwxrwxrwx 2 root  root  4096 Jan 15 13:37 zz</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-https内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/13/https%E5%86%85%E5%AE%B9/">https内容</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/13/https%E5%86%85%E5%AE%B9/" class="archive-article-date">
-  	<time datetime="2021-01-13T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="HTTPS了解"><a href="#HTTPS了解" class="headerlink" title="HTTPS了解"></a>HTTPS了解</h1><blockquote>
-<p>什么是https？</p>
-</blockquote>
-<p><strong>HTTPS是身披SSL外壳的HTTP</strong>。HTTPS是一种通过计算机网络进行安全通信的传输协议，经由HTTP进行通信，利用SSL/TLS建立全信道，加密数据包。HTTPS使用的主要目的是提供对网站服务器的身份认证，同时保护交换数据的隐私与完整性。</p>
-<blockquote>
-<p>https与http的区别</p>
-</blockquote>
-<p><strong>HTTP协议传输数据以明文形式显示</strong></p>
-<p><img src="/2021/01/13/https%E5%86%85%E5%AE%B9/image-20210113131854747.png" alt="image-20210113131854747"></p>
-<p><strong>而https不是用明文传输。</strong></p>
-<p><img src="/2021/01/13/https%E5%86%85%E5%AE%B9/image-20210113131929754.png" alt="image-20210113131929754"></p>
-<blockquote>
-<p>https特点</p>
-</blockquote>
-<ol>
-<li><p><strong>内容加密</strong></p>
-<p>采用混合加密技术，中间无法看到明文。</p>
+        <h1 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h1><h2 id="MyISAM和InnoDB的区别"><a href="#MyISAM和InnoDB的区别" class="headerlink" title="MyISAM和InnoDB的区别"></a>MyISAM和InnoDB的区别</h2><p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，<strong>而且最大的缺陷就是崩溃后无法安全恢复</strong>。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。</p>
+<p>大多数时候我们使用的都是 InnoDB 存储引擎，但是在某些情况下使用 MyISAM 也是合适的比如读密集的情况下。（如果你不介意 MyISAM 崩溃恢复问题的话）。</p>
+<p><strong>两者的对比：</strong></p>
+<p>1、<strong>是否支持行级锁</strong> : MyISAM 只有表级锁(table-level locking)，而InnoDB 支持行级锁(row-level locking)和表级锁,默认为行级锁。</p>
+<p>2、<strong>是否支持事务和崩溃后的安全恢复： MyISAM</strong> 强调的是性能，每次查询具有原子性,其执行速度比InnoDB类型更快，但是不提供事务支持。但是<strong>InnoDB</strong> 提供事务支持，外部键等高级数据库功能。 具有事务(commit)、回滚(rollback)和崩溃修复能力(crash recovery capabilities)的事务安全(transaction-safe (ACID compliant))型表。</p>
+<p>2、<strong>是否支持外键：</strong> MyISAM不支持，而InnoDB支持。</p>
+<p>3、<strong>是否支持MVCC</strong> ：仅 InnoDB 支持。应对高并发事务, MVCC比单纯的加锁更高效;MVCC只在 <code>READ COMMITTED</code> 和 <code>REPEATABLE READ</code> 两个隔离级别下工作;MVCC可以使用 乐观(optimistic)锁 和 悲观(pessimistic)锁来实现;各数据库中MVCC实现并不统一。</p>
+<p>4、<strong>索引：</strong></p>
 <ul>
-<li><strong>混合加密：</strong>结合非对称加密和对称加密技术。客户端使用对称加密生成密钥对传输数据进行加密，然后使用非对称加密的公钥再对秘钥进行加密，所以网络上传输的数据是被秘钥加密的密文和用公钥加密后的秘密秘钥，因此即使被黑客截取，由于没有私钥，无法获取到加密明文的秘钥，便无法获取到明文数据。</li>
+<li><strong>MyISAM:</strong> B+Tree叶节点的data域存放的是数据记录的地址。在索引检索的时候，首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其 data 域的值，然后以 data 域的值为地址读取相应的数据记录。这被称为“非聚簇索引”。</li>
+<li><strong>InnoDB:</strong> 其数据文件本身就是索引文件。相比MyISAM，索引文件和数据文件是分离的，其表数据文件本身就是按B+Tree组织的一个索引结构，树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。这被称为“聚簇索引（或聚集索引）”。而其余的索引都作为辅助索引，辅助索引的data域存储相应记录主键的值而不是地址，这也是和MyISAM不同的地方。<strong>在根据主索引搜索时，直接找到key所在的节点即可取出数据；在根据辅助索引查找时，则需要先取出主键的值，再走一遍主索引。</strong> <strong>因此，在设计表的时候，不建议使用过长的字段作为主键，也不建议使用非单调的字段作为主键，这样会造成主索引频繁分裂。</strong> </li>
 </ul>
-</li>
-<li><p><strong>身份验证</strong></p>
-<p>通过证书认证客户端访问的是自己的服务器。</p>
-</li>
-<li><p><strong>保护数据完整性</strong></p>
-<p>防止传输的内容被中间人冒充或者篡改。</p>
-</li>
-</ol>
 <blockquote>
-<p>https运行流程</p>
-</blockquote>
-<p><img src="/2021/01/13/https%E5%86%85%E5%AE%B9/image-20210113131958422.png" alt="image-20210113131958422"></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoming100001/article/details/81109617">https://blog.csdn.net/xiaoming100001/article/details/81109617</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/13/https%E5%86%85%E5%AE%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo搭建个人博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-01-12T11:27:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="用hexo搭建个人博客"><a href="#用hexo搭建个人博客" class="headerlink" title="用hexo搭建个人博客"></a>用hexo搭建个人博客</h3><blockquote>
-<p>1、首先安装node.js</p>
-</blockquote>
-<p>node.js中文下载网站：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a></p>
-<p>用cmd页面下输入node -v 和 npm -v 出现一下界面即安装成功。</p>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111201343306.png" alt="image-20210111201343306"></p>
-<p>嫌npm下载慢的可以下载阿里的cnpm</p>
-<p>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a></p>
-<blockquote>
-<p>2、安装hexo</p>
-</blockquote>
-<p>cnpm install -g hexo-cli</p>
-<p>安装完成后输入hexo -v</p>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111201857192.png" alt="image-20210111201857192"></p>
-<p>说明安装完成</p>
-<blockquote>
-<p>3、然后新建一个文件夹（个人博客文件夹），并进入改文件夹，初始化该文件夹</p>
-</blockquote>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111202054224.png" alt="image-20210111202054224"></p>
-<p>然后在该文件夹下hexo init（初始化hexo）</p>
-<blockquote>
-<p>4、启动hexo</p>
-</blockquote>
-<p>此时hexo已经在本地搭建完成，可以hexo s启动并在localhost:4000查看。</p>
-<p><img src="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210111202245353.png" alt="image-20210111202245353"></p>
-<p>关于hexo指令我就不一一介绍了，大家可以百度查找。</p>
-<blockquote>
-<p>5、远端部署（github）</p>
-</blockquote>
-<p>首先修改_config.yml文件</p>
-<p>把deploy部分改成以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ldeploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;yourgithubname&#x2F;yourgithubname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>修改完之后hexo g更新一个文件</p>
-<p>github上新建一个repo，名字为yourgithubname.github.io.</p>
-<p>此时下载一个git的脚本cnpm install –save hexo-deployer-git</p>
-<p>不然推送到远端会出错。</p>
-<p>然后hexo d推送到远端即可。</p>
-<p>用yourgithubname.github.io即可访问你的个人博客</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-dns系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/">dns系统</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-  	<time datetime="2021-01-12T11:26:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="dns系统"><a href="#dns系统" class="headerlink" title="dns系统"></a>dns系统</h2><blockquote>
-<p>dns系统概述</p>
-</blockquote>
-<p>域名系统DNS（domain name system）是因特网使用的命名系统，用来把便于人们记忆的含有特定含义的主机名转换为便于机器处理的IP地址，值得注意的是，<strong>DNS系统采用C/S架构</strong>，<strong>其协议运行在UDP之上，使用53号端口</strong>。<br>DNS分为三个部分，层次域名空间，域名服务器和解析器。</p>
-<blockquote>
-<p>层次域名空间</p>
-</blockquote>
 <ol>
-<li>根域名服务器</li>
-<li>顶级域名服务器</li>
-<li>权限域名服务器</li>
-<li>本地域名服务器</li>
+<li>聚集索引一个表只能有一个，而非聚集索引一个表可以存在多个</li>
+<li>聚集索引存储记录是物理上连续存在，而非聚集索引是逻辑上的连续，物理存储并不连续</li>
+<li>聚集索引：物理存储按照索引排序；聚集索引是一种索引组织形式，索引的键值逻辑顺序决定了表数据行的物理存储顺序</li>
+<li>非聚集索引：物理存储不按照索引排序；非聚集索引则就是普通索引了，仅仅只是对数据列创建相应的索引，不影响整个表的物理存储顺序.</li>
+<li>索引是通过二叉树的数据结构来描述的，我们可以这么理解聚簇索引：索引的叶节点就是数据节点。而非聚簇索引的叶节点仍然是索引节点，只不过有一个指针指向对应的数据块。</li>
 </ol>
+</blockquote>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p><strong>事务是逻辑上的一组操作，要么都执行，要么都不执行。</strong></p>
+<p>事务最经典也经常被拿出来说例子就是转账了。假如小明要给小红转账1000元，这个转账会涉及到两个关键操作就是：将小明的余额减少1000元，将小红的余额增加1000元。万一在这两个操作之间突然出现错误比如银行系统崩溃，导致小明余额减少而小红的余额没有增加，这样就不对了。事务就是保证这两个关键操作要么都成功，要么都要失败。</p>
+<h2 id="事物的四大特性"><a href="#事物的四大特性" class="headerlink" title="事物的四大特性"></a>事物的四大特性</h2><ul>
+<li><strong>脏读（Dirty read）:</strong> 当一个事务正在访问数据并且对数据进行了修改，而这种修改还没有提交到数据库中，这时另外一个事务也访问了这个数据，然后使用了这个数据。因为这个数据是还没有提交的数据，那么另外一个事务读到的这个数据是“脏数据”，依据“脏数据”所做的操作可能是不正确的。</li>
+<li><strong>丢失修改（Lost to modify）:</strong> 指在一个事务读取一个数据时，另外一个事务也访问了该数据，那么在第一个事务中修改了这个数据后，第二个事务也修改了这个数据。这样第一个事务内的修改结果就被丢失，因此称为丢失修改。 例如：事务1读取某表中的数据A=20，事务2也读取A=20，事务1修改A=A-1，事务2也修改A=A-1，最终结果A=19，事务1的修改被丢失。</li>
+<li><strong>不可重复读（Unrepeatableread）:</strong> 指在一个事务内多次读同一数据。在这个事务还没有结束时，另一个事务也访问该数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改导致第一个事务两次读取的数据可能不太一样。这就发生了在一个事务内两次读到的数据是不一样的情况，因此称为不可重复读。</li>
+<li><strong>幻读（Phantom read）:</strong> 幻读与不可重复读类似。它发生在一个事务（T1）读取了几行数据，接着另一个并发事务（T2）插入了一些数据时。在随后的查询中，第一个事务（T1）就会发现多了一些原本不存在的记录，就好像发生了幻觉一样，所以称为幻读。</li>
+</ul>
 <blockquote>
-<p>域名解析过程</p>
+<p><strong>不可重复读和幻读区别：</strong></p>
+<p>不可重复读的重点是修改比如多次读取一条记录发现其中某些列的值被修改，幻读的重点在于新增或者删除比如多次读取一条记录发现记录增多或减少了。</p>
 </blockquote>
-<p>域名解析也就是把域名映射成IP地址或者把IP地址映射成为域名的过程。前者称为正向解析，后者称为反向解析。当客户端需要域名解析时，通过本机的DNS客户端构造一个DNS请求报文，以UDP数据报方式发往本地域名服务器。</p>
-<p>域名解析有两种方式：<strong>递归查询和迭代查询</strong></p>
-<p>递归查询说白了就是靠别人去帮你查，你把域名丢给本地域名服务器，本地域名服务器就丢给对应的根域名服务器，依次类推，最后返回给本地域名服务器。</p>
-<p>而迭代查询就是靠自己去查了，本地域名服务器先是访问根域名服务器，根域名服务器返回一个顶级域名服务器给本地域名服务器，然后本地域名服务器再去对应的顶级域名服务器查找，依次往后查找。</p>
-<p>一般域名服务器都会有个<strong>高速缓存</strong>，本地域名服务器会缓存一些你经常访问的域名，并定时更新。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-操作系统学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/">操作系统学习</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-01-12T05:37:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><blockquote>
-<p>进程的定义</p>
-</blockquote>
-<p>程序段、数据段、pcb组成了进程实体（进程映像）。一般情况下，把进程实体称作进程。</p>
-<p>（pcb：进程控制块，用来描述进程的各种信息）</p>
-<p>所谓创建进程就是创建进程实体中的pcb，撤销进程也是撤销pcb。</p>
-<p>所以，<strong>pcb是进程存在的唯一标志</strong></p>
-<p><strong>定义</strong> ：进程是进程实体的运行过程，是<strong>系统进行资源分配和调度的一个独立单位</strong>。</p>
-<blockquote>
-<p>进程的组成</p>
-</blockquote>
-<p>上面提到了程序段、数据段、pcb组成了进程实体（进程映像）。</p>
-<p>其中程序段、数据段包含程序运行所需要的数据</p>
-<p>pcb则是便于操作系统管理的一些进程信息。</p>
-<blockquote>
-<p>进程的组织方式</p>
-</blockquote>
-<ol>
-<li><p>链接方式</p>
-<p>处于就绪或者阻塞状态下的进程，他们的pcb位置通过链表的形式连接</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112123405179.jpg" alt="image-20210112123405179"></p>
-</li>
-<li><p>索引方式</p>
-<p>与链接方式不同的是，就绪指针指向的不是一个链表，而是一个索引表，索引表对应着每个进程的pcb</p>
-</li>
-</ol>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112123617370.jpg" alt="image-20210112123617370"></p>
-<blockquote>
-<p>进程的状态</p>
-</blockquote>
-<ol>
-<li><p>三种基本状态</p>
+<h2 id="事务隔离级别有哪些"><a href="#事务隔离级别有哪些" class="headerlink" title="事务隔离级别有哪些?"></a>事务隔离级别有哪些?</h2><p><strong>SQL 标准定义了四个隔离级别：</strong></p>
 <ul>
-<li>运行态：进程正在运行，占用cpu资源</li>
-<li>就绪态：具备运行条件，等待空闲cpu</li>
-<li>阻塞态：正在处理某种事物，等待事物处理完毕（调取io资源，读取磁盘资源等）</li>
+<li><strong>READ-UNCOMMITTED(读取未提交)：</strong> 最低的隔离级别，允许读取尚未提交的数据变更，<strong>可能会导致脏读、幻读或不可重复读</strong>。</li>
+<li><strong>READ-COMMITTED(读取已提交)：</strong> 允许读取并发事务已经提交的数据，<strong>可以阻止脏读，但是幻读或不可重复读仍有可能发生</strong>。</li>
+<li><strong>REPEATABLE-READ(可重复读)：</strong> 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，<strong>可以阻止脏读和不可重复读，但幻读仍有可能发生</strong>。</li>
+<li><strong>SERIALIZABLE(可串行化)：</strong> 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，<strong>该级别可以防止脏读、不可重复读以及幻读</strong>。</li>
 </ul>
-</li>
-<li><p>另外两种状态</p>
+<h1 id="锁机制与InnoDB锁算法"><a href="#锁机制与InnoDB锁算法" class="headerlink" title="锁机制与InnoDB锁算法"></a>锁机制与InnoDB锁算法</h1><h2 id="MyISAM和InnoDB存储引擎使用的锁："><a href="#MyISAM和InnoDB存储引擎使用的锁：" class="headerlink" title="MyISAM和InnoDB存储引擎使用的锁："></a><strong>MyISAM和InnoDB存储引擎使用的锁：</strong></h2><ul>
+<li>MyISAM采用表级锁(table-level locking)。</li>
+<li>InnoDB支持行级锁(row-level locking)和表级锁,默认为行级锁</li>
+</ul>
+<h2 id="表级锁和行级锁对比："><a href="#表级锁和行级锁对比：" class="headerlink" title="表级锁和行级锁对比："></a><strong>表级锁和行级锁对比：</strong></h2><ul>
+<li><strong>表级锁：</strong> MySQL中锁定 <strong>粒度最大</strong> 的一种锁，对当前操作的整张表加锁，实现简单，资源消耗也比较少，加锁快，不会出现死锁。其锁定粒度最大，触发锁冲突的概率最高，并发度最低，MyISAM和 InnoDB引擎都支持表级锁。</li>
+<li><strong>行级锁：</strong> MySQL中锁定 <strong>粒度最小</strong> 的一种锁，只针对当前操作的行进行加锁。 行级锁能大大减少数据库操作的冲突。其加锁粒度最小，并发度高，但加锁的开销也最大，加锁慢，<strong>会出现死锁</strong>。</li>
+</ul>
+<h2 id="InnoDB存储引擎的锁的算法有三种："><a href="#InnoDB存储引擎的锁的算法有三种：" class="headerlink" title="InnoDB存储引擎的锁的算法有三种："></a><strong>InnoDB存储引擎的锁的算法有三种：</strong></h2><ul>
+<li>Record lock：单个行记录上的锁</li>
+<li>Gap lock：间隙锁，锁定一个范围，不包括记录本身</li>
+<li>Next-key lock：record+gap 锁定一个范围，包含记录本身</li>
+</ul>
+<h1 id="大表优化"><a href="#大表优化" class="headerlink" title="大表优化"></a>大表优化</h1><ul>
+<li><strong>限定数据的范围</strong></li>
+</ul>
+<p>务必禁止不带任何限制数据范围条件的查询语句。比如：我们当用户在查询订单历史的时候，我们可以控制在一个月的范围内；</p>
 <ul>
-<li>创建态：进程新建，为进程分配其所需空间。</li>
-<li>终止态：进程终止，为其撤销其占用资源。</li>
+<li><strong>读写分离</strong></li>
 </ul>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112171824812.png" alt="image-20210112171824812"></p>
-</li>
-</ol>
-<blockquote>
-<p>进程通信</p>
-</blockquote>
-<ol>
-<li><p>共享内存</p>
-<p>两个进程通过操作系统指定的共享内存区域进行通信。</p>
-<p>两个进程对共享区的读写会有个同步管理，一个进程在写时，另一个进程不能访问改共享区域。</p>
-</li>
-<li><p>管道通信</p>
-<p>两个进程通过一个pipe进行消息传递，写进程通过write()向管道内写入自己传递的信息，当管道内信息满了时，写进程阻塞，此时读进程通过read()读取管道内的消息，读完时同样堵塞（<strong>没读完时，写进程不能进行写操作</strong>），等待消息。</p>
-</li>
-<li><p>消息传递</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210112173617997.png" alt="image-20210112173617997"></p>
-</li>
-</ol>
-<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><ol>
-<li>线程时处理机调度的单位</li>
-<li>几乎不拥有系统资源</li>
-<li>同一进程的不同线程间共享进程的资源</li>
-<li>同一进程的线程间通信几乎无需系统干预。</li>
-<li>切换同一进程的线程开销很小</li>
-</ol>
-<h2 id="什么时候使用进程什么时候使用线程"><a href="#什么时候使用进程什么时候使用线程" class="headerlink" title="什么时候使用进程什么时候使用线程"></a>什么时候使用进程什么时候使用线程</h2><p><strong>进程与线程的选择取决以下几点：</strong></p>
-<p>1、需要频繁创建销毁的优先使用线程；因为对进程来说创建和销毁一个进程代价是很大的。</p>
-<p>2、线程的切换速度快，所以在需要大量计算，切换频繁时用线程，还有耗时的操作使用线程可提高应用程序的响应</p>
-<p>3、因为对CPU系统的效率使用上线程更占优，所以可能要发展到多机分布的用进程，多核分布用线程；</p>
-<p>4、并行操作时使用线程，如C/S架构的服务器端并发线程响应用户的请求；</p>
-<p>5、需要更稳定安全时，适合选择进程；需要速度时，选择线程更好。</p>
-<h2 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h2><ol>
-<li><p>先来先调度算法（FCFS）</p>
-<p>先来的进程优先调度，不会引起饥饿。</p>
-</li>
-<li><p>短作业优先算法（SJF）</p>
-<p>运行时间最短的进程优先调度，会引起饥饿。</p>
-<p>其中又分为抢占式和非抢占式。其区别就是已经运行的进程会不会被更短的进程占用cpu。</p>
-<p>（默认是非抢占式）</p>
-<p><strong>此算法的平均等待时间、平均周转时间最短</strong>（认为给出的进程的运行时间是可信的）</p>
-</li>
-<li><p>高相应比优先算法（HRRN）</p>
-<p>为每个进程设置一个响应比=（等待时间+要求服务时间）/要求服务时间。调度时根据每个进程的响应比大小来调度最大相应比进程。（不会导致饥饿）</p>
-</li>
-<li><p>时间片轮转（RR）</p>
-<p>每次调度只为该进程分配一定的时间片，若该进程没有执行完则会被抢占，轮换下一个就绪进程。</p>
-<p>（不会导致饥饿）</p>
-<p><strong>时间片太大或太小会有什么影响</strong>：</p>
-<p>时间片太大会导致平均等待时间、平均周转时间过大</p>
-<p>时间片太小则会导致cpu反复切换耗费时间太多</p>
-</li>
-<li><p>优先级调度算法</p>
-<p>为每个进程设计一个优先级，优先级高的先调用。(会导致饥饿)</p>
-<p>抢占式和非抢占式的都有</p>
-</li>
-<li><p><strong>多级反馈队列调度算法</strong></p>
-<p>设置多个进程队列，队列优先级高的运行时间片短，当有新进程加入时，优先放入最高优先级队列。每次一个进程执行完他的时间片后放入下一个队列的队尾。（也可分为抢占式和非抢占式）</p>
-<p>该算法结合了上面几种算法的优点，兼具公平，不失效率。（会导致饥饿）</p>
-</li>
-</ol>
-<h2 id="进程互斥的软件实现方法"><a href="#进程互斥的软件实现方法" class="headerlink" title="进程互斥的软件实现方法"></a>进程互斥的软件实现方法</h2><ol>
-<li><p>单标志法</p>
-<p>两个进程再访问完临界区后会把使用临界区的权限转交给下一个进程，也就是说每个进程对临界区的访问权限只能由另一个进程赋予。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113095836261.png" alt="image-20210113095836261"></p>
-<p>但是当p0进程没有访问临界区但p1进程想要访问临界区时，p1进程会一直阻塞，违背了“空闲让进”原则。</p>
-</li>
-<li><p>双标志检测法</p>
-<p>设置一个flag数组，flag[i]表示进程i是否在访问临界区，每当一个进程要访问临界区时就判断flag数组里面有没有在访问临界区的进程，如果有，则等待，若没有，则将自己的flag=1，然后访问临界区。</p>
-<p>注意：当两个进程同时判断时，又同时没有在访问临界区的进程，则两个进程会同时进入临界区。违反了“忙则等待”原则。</p>
-</li>
-<li><p>双标志后检查法</p>
-<p>原理与双标志检查法类似，主要不同在于双标志先检查法时先检查后设置，双标志后检查法先设置后检查。</p>
-<p>这样也会存在一定问题，当两个进程同时设置，那么两个进程都无法访问到临界区，从而产生饥饿。</p>
-</li>
-<li><p>Peterson算法</p>
-<p>结合了单标志法和双标志法，每个想进入临界区的进程都会礼让其他进程，这就会让最后一个礼让行为结束后只有一个进程进入临界区，且不会导致多个进程同时进入和都不能进入的问题。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113105642623.png" alt="image-20210113105642623"></p>
-<p>这种方式还是会浪费处理机资源（while一直判断直到时间片结束）</p>
-</li>
-</ol>
-<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>信号量其实就是一个变量（可以是一个整数或者一个结构体）</p>
-<p>在上面的双标记先检查法中唯一的不足就是检查和设置操作不是原子性，导致可能多个进程同时进入临界区。</p>
-<p><strong>而原语正好解决了这一问题，利用wait(s),signal(s),来处理进入区的操作即可保证原子性。</strong>（s为信号量，表示临界区可访问的进程数目）</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113112833460.png" alt="image-20210113112833460"></p>
-<p><strong>这样解决了同时进入的问题，但还是会存在处理机资源的浪费问题。</strong></p>
-<p>所以我们将信号量从整型升级为一个结构体。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113113025416.png" alt="image-20210113113025416"></p>
-<p>process *L表示的一个阻塞队列，value表示剩余资源数目，每当一个进程想访问临界区时，value就会减少1，当value&lt;0时表示已经没有临界区资源了，那么就将此进程放入阻塞队列中，这样就不会浪费处理机的资源了。</p>
-<p><strong>信号量还可以解决进程间的同步和前驱问题</strong></p>
-<p>信号量的初始值为0.先执行的进程中加入signal(s)，后执行的进程中加入wait(s),这样就可以让两个进程有序执行（必定要先执行signal再执行wait）</p>
-<p>前驱问题只要在每个前驱关系中加入一个信号量即可。</p>
-<h2 id="非连续分配管理内存空间"><a href="#非连续分配管理内存空间" class="headerlink" title="非连续分配管理内存空间"></a>非连续分配管理内存空间</h2><h3 id="分页式管理"><a href="#分页式管理" class="headerlink" title="分页式管理"></a>分页式管理</h3><p>将内存空间分为一个个大小相等的分区，每个分区就是一个页框（页帧）</p>
-<p>用户进程的地址空间分为与页框大小相等的一个个区域，然后分别存入不同的区域中（页框不能太大，否则会产生大量内部碎片）。</p>
-<p>那么如何实现分页地址管理呢？</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113185032268.png" alt="image-20210113185032268"></p>
-<p>通过进程逻辑地址与物理地址的映射来访问。</p>
-<p>映射是通过计算在逻辑的哪个页框以及页内偏移量，再映射到物理地址该页框的实际地址加上偏移量就行了。</p>
-<h3 id="分段式管理"><a href="#分段式管理" class="headerlink" title="分段式管理"></a>分段式管理</h3><p>进程的地址空间：按程序自身的逻辑关系划分为若干个段，每个段有个段名。</p>
-<p>在内存分配的时候，以段为单位来进行分配，每个段在地址空间中占用连续的空间，每个段可以不相邻。</p>
-<p>分段式管理的地址变换和分页式管理的差不多，段表上多存了一个段表上的的值</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113193454186.png" alt="image-20210113193454186"></p>
-<p>在分段管理中一定要对段内偏移量进行一个审查，看其是否超出段长。（在分页式管理中并没有这个要求）</p>
-<p>分段管理更容易实现信息的共享和保护。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113194711158.png" alt="image-20210113194711158"></p>
-<h3 id="段页式管理"><a href="#段页式管理" class="headerlink" title="段页式管理"></a>段页式管理</h3><p>基本思想就是结合分页和分段各自的优点。</p>
-<p><strong>将进程按逻辑模块先分段，再将各个段进行分页</strong></p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113194956099.png" alt="image-20210113194956099"></p>
-<p>段页式管理中，既存在段表也存在页表，段表中每个段表项存储其页表长度和页表存放块号，每个页表中由页号、页面存放的内存块号组成。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210113195540119.png" alt="image-20210113195540119"></p>
-<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>虚拟内存是操作系统的一个内存管理方式，与传统的内存管理方式不同的是，<strong>虚拟内存不需要将一个进程的所有数据放入内存中，只需要将一些目前经常访问的数据放入内存即可保证进程的正常运行</strong>。当进程需要的数据不在内存中时，再从外存调入内存，一些不经常访问的数据也会从内存调入外存。</p>
-<h3 id="局部性"><a href="#局部性" class="headerlink" title="局部性"></a>局部性</h3><blockquote>
-<p>时间局部性</p>
-</blockquote>
-<p>时间局部性表示在访问了某个指令或者某个数据后，那么这个指令或者数据很可能再次被访问。（因为程序中存在大量的循环）</p>
-<blockquote>
-<p>空间局部性</p>
-</blockquote>
-<p>空间局部性表示在访问了某个数据后，那么很可能访问这个数据周围的数据。</p>
-<p>（指令都是连续访问，所以基本是可以顺序执行）</p>
-<p><strong>由于局部性原理诞生的高速缓存技术，由于局部数据可能大量访问，所以可以将这些数据放入高速缓存区中，加快读取效率。</strong></p>
-<h3 id="请求分页管理"><a href="#请求分页管理" class="headerlink" title="请求分页管理"></a>请求分页管理</h3><p>请求分页管理技术是在分页管理的基础上增加了虚拟内存技术。其相应的页表也会发生变化。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114213640451.png" alt="image-20210114213640451"></p>
-<p>若访问的内存块状态位为0，即没调入内存，那么该进程就会阻塞，等待调页完成后再将其唤醒。若内存中此时有空闲的内存块，那么就将要访问的内存块调入该空闲区域，若此时没有空闲区域，那就实行页面置换算法选择一个内存被置换，若该内存块被修改过还要写入外存。（<strong>这里是请求分页在普通分页的基础上新增加的部分</strong>）</p>
-<h3 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h3><blockquote>
-<p>最佳置换算法（OPT）</p>
-</blockquote>
-<p>每次淘汰的页面是以后永远不会使用或者最长时间不会使用的页面。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114215940085.png" alt="image-20210114215940085"></p>
-<p>这种算法要提前预知每个页面被使用的时间，在实际场景中操作系统并不知道，所以这是一个理想化的模型。</p>
-<blockquote>
-<p>先进先出置换算法（FIFO）</p>
-</blockquote>
-<p>这个算法比较好理解，在发生缺页时优先调出最先进入的页面。</p>
-<p>具体实现：维护一个页面序号队列，每次新页面进入则放进队尾，页面换出则是选择队首页面。</p>
-<p>但是这个算法会产生Belady异常。（<strong>实现简单，没有考虑页面的一个贡献，算法效率差</strong>）</p>
-<p>（Belady异常：当为进程分配的物理块数增大时，缺页次数反而增加。）</p>
-<blockquote>
-<p>最近最久未使用置换算法（LRU）</p>
-</blockquote>
-<p>每次淘汰最近最久没有使用的页面。</p>
-<p>具体实现：在页表项添加访问字段一栏，表示该页面最近被访问的时间，该时间离现在时间越长，则优先淘汰。</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114221205357.png" alt="image-20210114221205357"></p>
-<p><strong>该算法需要具体的硬件支持，虽然算法性能好，但是实现困难，开销大。</strong></p>
-<blockquote>
-<p>时钟置换算法（clock）</p>
-</blockquote>
-<p>又称最近未使用算法，是一种性能与开销较均衡的算法。</p>
-<p>具体实现：为每个页面设置一个访问位，每次访问该页面时就将该页面的访问位置为1，当出现缺页时，就从页表中查找访问位为0的页表进行置换，若访问位为1，则将其置为0，暂不淘汰。若一次扫描中没有访问位为0的页表，则进行第二次扫描。</p>
-<blockquote>
-<p>改进型的时钟算法</p>
-</blockquote>
-<p>在时钟算法的基础上增加了修改位的判断，如果修改位为0的话，那么这个页面在被置换的时候不需要被写回外存，所以在选择被置换的页面时优先考虑修改位为0的页面可以提高算法效率。</p>
-<p>具体实现：分为四轮扫描，</p>
-<ol>
-<li>扫描到一个访问位为0，且修改位也为0的页面。</li>
-<li>在1未成功的基础上，扫描一个访问位为0，修改位为1的页面，且将访问位为1的置为0.</li>
-<li>在2未成功的基础上，扫描到一个访问位为0，且修改位也为0的页面。（因为第二次扫描已经将访问位为1的全部置为0了）</li>
-<li>在3未成功的基础上，扫描到一个访问位为0，且修改位也为1的页面。</li>
-</ol>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114223212042.png" alt="image-20210114223212042"></p>
-<blockquote>
-<p>5种页面置换算法的总结</p>
-</blockquote>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210114223308261.png" alt="image-20210114223308261"></p>
-<h3 id="页面分配、置换策略"><a href="#页面分配、置换策略" class="headerlink" title="页面分配、置换策略"></a>页面分配、置换策略</h3><ul>
-<li>驻留集：请求分页管理中给进程分配的物理块的集合。</li>
+<p>经典的数据库拆分方案，主库负责写，从库负责读，有效减少主库压力；</p>
+<ul>
+<li><strong>垂直分区</strong></li>
 </ul>
+<p><strong>根据数据库里面数据表的相关性进行拆分。</strong> 例如，用户表中既有用户的登录信息又有用户的基本信息，可以将用户表拆分成两个单独的表，甚至放到单独的库做分库。</p>
 <blockquote>
-<p>分配策略</p>
+<ul>
+<li><strong>垂直拆分的优点：</strong> 可以使得列数据变小，在查询时减少读取的Block数，减少I/O次数。此外，垂直分区可以简化表的结构，易于维护。</li>
+<li><strong>垂直拆分的缺点：</strong> 主键会出现冗余，需要管理冗余列，并会引起Join操作，可以通过在应用层进行Join来解决。此外，垂直分区会让事务变得更加复杂；</li>
+</ul>
 </blockquote>
-<p>1.固定分配：每个进程分配一定数目的物理块，进程在运行期间不再改变，即驻留集大小不变。</p>
-<p>2.可变分配：~，驻留集大小可变。</p>
-<blockquote>
-<p>置换策略</p>
-</blockquote>
-<p>1.局部置换：发生缺页时只能选择进程自己的物理块进行置换。</p>
-<p>2.全局置换：可以选择其他进程的物理块进行置换。</p>
-<p>根据分配和置换策略进行组合</p>
-<p><img src="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/image-20210115095540634.png" alt="image-20210115095540634"></p>
-<p><em>内容来自：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YE411D7nH">https://www.bilibili.com/video/BV1YE411D7nH</a></em></p>
+<ul>
+<li><strong>水平分区</strong></li>
+</ul>
+<p>水平拆分是指数据表行的拆分，表的行数超过200万行时，就会变慢，这时可以把一张的表的数据拆成多张表来存放。举个例子：我们可以将用户信息表拆分成多个用户信息表，这样就可以避免单一表数据量过大对性能造成影响。</p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="为什么使用索引"><a href="#为什么使用索引" class="headerlink" title="为什么使用索引"></a>为什么使用索引</h2><p>1、通过创建唯一性索引，可以<strong>保证数据库表中每一行数据的唯一性</strong>。</p>
+<p>2、可以<strong>大大加快 数据的检索速度</strong>（大大减少的检索的数据量）, 这也是创建索引的最主要的原因。</p>
+<p>3、帮助服务器避免排序和临时表。</p>
+<p>4、将<strong>随机IO变为顺序IO</strong>（磁盘在顺序io的速度比随机io快很多） </p>
+<p>5、可以加速表和表之间的连接，特别是在实现数据的参考完整性方面特别有意义。</p>
+<h2 id="使用索引的注意事项"><a href="#使用索引的注意事项" class="headerlink" title="使用索引的注意事项"></a>使用索引的注意事项</h2><p>1、在经常需要搜索的列上，可以加快搜索的速度；</p>
+<p>2、在经常使用在WHERE子句中的列上面创建索引，加快条件的判断速度。</p>
+<p>3、在经常需要排序的列上创 建索引，因为索引已经排序，这样查询可以利用索引的排序，加快排序查询时间；</p>
+<p>4、对于中到大型表索引都是非常有效的，但是特大型表的话维护开销会很大，不适合建索引</p>
+<p>5、在经常用在连接的列上，这 些列主要是一些外键，可以加快连接的速度；</p>
+<p>6、避免 where 子句中对字段施加函数，这会造成无法命中索引。</p>
+<p>7、在使用InnoDB时使用与业务无关的自增主键作为主键，即使用逻辑主键，而不要使用业务主键。</p>
+<h2 id="为什么索引可以加快查询速度"><a href="#为什么索引可以加快查询速度" class="headerlink" title="为什么索引可以加快查询速度"></a>为什么索引可以加快查询速度</h2><h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><p>首先Mysql的基本存储结构是<strong>页</strong>(记录都存在页里边)：</p>
+<p><img src="/2021/01/25/MySql/imageslim.jpg" alt="img"></p>
+<p><img src="/2021/01/25/MySql/imageslim1.jpg" alt="img"></p>
+<p><strong>各个数据页</strong>可以组成一个<strong>双向链表</strong></p>
+<p>而<strong>每个数据页中的记录</strong>又可以组成一个<strong>单向</strong>链表</p>
+<ul>
+<li>每个数据页都会为存储在它里边儿的记录生成一个<strong>页目录</strong>，在通过<strong>主键</strong>查找某条记录的时候可以在页目录中使用<strong>二分法快速定位</strong>到对应的槽，然后再遍历该槽对应分组中的记录即可快速找到指定的记录</li>
+<li>以<strong>其他列</strong>(非主键)作为搜索条件：只能从最小记录开始<strong>依次遍历单链表中的每条记录</strong>。</li>
+</ul>
+<p>所以说，如果我们写<code>select * from user where username = &#39;zz&#39;</code>这样没有进行任何优化的sql语句，默认会这样做：</p>
+<ul>
+<li>定位到记录所在的页<ul>
+<li>需要遍历双向链表，找到所在的页</li>
+</ul>
+</li>
+<li>从所在的页内中查找相应的记录<ul>
+<li>由于不是根据主键查询，只能遍历所在页的单链表了</li>
+</ul>
+</li>
+</ul>
+<p>很明显，在数据量很大的情况下这样查找会<strong>很慢</strong>！</p>
+<h3 id="如何提高查询效率"><a href="#如何提高查询效率" class="headerlink" title="如何提高查询效率"></a>如何提高查询效率</h3><p><strong>索引就是将无序的数据变成有序</strong></p>
+<p><img src="/2021/01/25/MySql/imageslim2.jpg" alt="img"></p>
+<p><img src="/2021/01/25/MySql/img3.jpg" alt="img"></p>
+<p>很明显的是：<strong>没有用索引</strong>我们是需要<strong>遍历双向链表</strong>来定位对应的页，现在通过<strong>“目录”</strong>就可以很快地定位到对应的页上了！</p>
+<p>其实底层结构就是<strong>B+树</strong>，B+树作为树的一种实现，能够让我们<strong>很快地</strong>查找出对应的记录。</p>
+<h2 id="最左匹配原则"><a href="#最左匹配原则" class="headerlink" title="最左匹配原则"></a>最左匹配原则</h2><p>只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。使用复合索引时遵循最左前缀集合，所以在建立联合索引的时候查询最频繁的条件要放在左边<br>假设我们创建（col1，col2，col3）这样的一个组合索引，那么相当于对col1列进行排序，也就是我们创建组合索引，以最左边的为准，只要查询条件中带有最左边的列，那么查询就会使用到索引</p>
+<ul>
+<li>如果是联合索引，那么key也由多个列组成，同时，索引只能用于查找key是否<strong>存在（相等）</strong>，遇到范围查询<code>(&gt;、&lt;、between、like</code>左匹配)等就<strong>不能进一步匹配</strong>了，后续退化为线性查找。</li>
+</ul>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一个没有感情的点赞机器<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -772,16 +314,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/01/25/MySql/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/01/25/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">布隆过滤器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -801,150 +402,14 @@
 
 
 
-
-  
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-01-11T09:44:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<p>##参考文献<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty?from=search&amp;seid=15936694823282570499">https://www.bilibili.com/video/BV1Yb411a7ty?from=search&amp;seid=15936694823282570499</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/11/hello-world/" class="archive-article-date">
-  	<time datetime="2021-01-11T09:34:47.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/11/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -967,8 +432,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
