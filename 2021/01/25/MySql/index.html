@@ -8,22 +8,23 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>MySql | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="执行引擎MyISAM和InnoDB的区别MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。 大多数时候我们使用的都是 Inno">
+  <meta name="description" content="MySql基本架构  service层： ​    连接器：管理链接 验证权限 连接器会直接链接到缓存以及分析器 ​    查询缓存： 缓存中命中则直接返回 ​    分析器：混村未能命中的时候 使用分析器 分析词法 语法 ​    优化器： 执行计划生成 索引选择数据 ​    执行器： 链接引擎操作数据 执行引擎MyISAM和InnoDB的区别MyISAM是MySQL的默认数据库引擎（5.5版">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySql">
 <meta property="og:url" content="http://example.com/2021/01/25/MySql/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="执行引擎MyISAM和InnoDB的区别MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。 大多数时候我们使用的都是 Inno">
+<meta property="og:description" content="MySql基本架构  service层： ​    连接器：管理链接 验证权限 连接器会直接链接到缓存以及分析器 ​    查询缓存： 缓存中命中则直接返回 ​    分析器：混村未能命中的时候 使用分析器 分析词法 语法 ​    优化器： 执行计划生成 索引选择数据 ​    执行器： 链接引擎操作数据 执行引擎MyISAM和InnoDB的区别MyISAM是MySQL的默认数据库引擎（5.5版">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/25/MySql/1613177-20190728173523564-1506409123.png">
 <meta property="og:image" content="http://example.com/2021/01/25/MySql/imageslim.jpg">
 <meta property="og:image" content="http://example.com/2021/01/25/MySql/imageslim1.jpg">
 <meta property="og:image" content="http://example.com/2021/01/25/MySql/imageslim2.jpg">
 <meta property="og:image" content="http://example.com/2021/01/25/MySql/img3.jpg">
 <meta property="article:published_time" content="2021-01-25T02:51:44.000Z">
-<meta property="article:modified_time" content="2021-01-25T06:51:14.603Z">
+<meta property="article:modified_time" content="2021-01-26T04:03:06.876Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/01/25/MySql/imageslim.jpg">
+<meta name="twitter:image" content="http://example.com/2021/01/25/MySql/1613177-20190728173523564-1506409123.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -165,7 +166,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h1><h2 id="MyISAM和InnoDB的区别"><a href="#MyISAM和InnoDB的区别" class="headerlink" title="MyISAM和InnoDB的区别"></a>MyISAM和InnoDB的区别</h2><p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，<strong>而且最大的缺陷就是崩溃后无法安全恢复</strong>。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。</p>
+        <h1 id="MySql基本架构"><a href="#MySql基本架构" class="headerlink" title="MySql基本架构"></a>MySql基本架构</h1><p><img src="/2021/01/25/MySql/1613177-20190728173523564-1506409123.png" alt="img"></p>
+<p> service层：</p>
+<p>​    连接器：管理链接 验证权限 连接器会直接链接到缓存以及分析器</p>
+<p>​    查询缓存： 缓存中命中则直接返回</p>
+<p>​    分析器：混村未能命中的时候 使用分析器 分析词法 语法</p>
+<p>​    优化器： 执行计划生成 索引选择数据</p>
+<p>​    执行器： 链接引擎操作数据</p>
+<h1 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h1><h2 id="MyISAM和InnoDB的区别"><a href="#MyISAM和InnoDB的区别" class="headerlink" title="MyISAM和InnoDB的区别"></a>MyISAM和InnoDB的区别</h2><p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，<strong>而且最大的缺陷就是崩溃后无法安全恢复</strong>。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。</p>
 <p>大多数时候我们使用的都是 InnoDB 存储引擎，但是在某些情况下使用 MyISAM 也是合适的比如读密集的情况下。（如果你不介意 MyISAM 崩溃恢复问题的话）。</p>
 <p><strong>两者的对比：</strong></p>
 <p>1、<strong>是否支持行级锁</strong> : MyISAM 只有表级锁(table-level locking)，而InnoDB 支持行级锁(row-level locking)和表级锁,默认为行级锁。</p>
@@ -374,6 +382,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/01/26/java%E9%9B%86%E5%90%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java集合
+        
+      </div>
+    </a>
   
   
     <a href="/2021/01/25/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
