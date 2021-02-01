@@ -138,6 +138,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-一致性hash" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/">一致性hash</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/" class="archive-article-date">
+  	<time datetime="2021-02-01T03:52:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一致性哈希由来"><a href="#一致性哈希由来" class="headerlink" title="一致性哈希由来"></a>一致性哈希由来</h1><p>有效解决分布式存储结构下<strong>动态增加或删除节点</strong>所带来的问题，能保证这种不受实例数量变化影响而准确路由到正确的实例上的算法或实现机制。</p>
+<h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数 H 的值空间为 <code>0 ~ 2^32-1</code>（即哈希值是一个32位无符号整形），整个哈希环如下：</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002756037-1214590265.png" alt="img"></p>
+<p>假设我们有4台服务器，服务器0、服务器1、服务器2，服务器3，那么，在生产环境中，这4台服务器肯定有自己的 IP 地址或主机名，我们使用它们各自的 IP 地址或主机名作为关键字进行哈希计算，使用哈希后的结果对<code>2^32</code>取模。</p>
+<p>最后会得到一个 <code>[0, 2^32-1]</code>之间的一个无符号整形数，这个整数就代表服务器的编号。同时这个整数肯定处于<code>[0, 2^32-1]</code>之间，那么，上图中的 hash 环上必定有一个点与这个整数对应。那么这个服务器就可以映射到这个环上。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002853438-1820632464.png" alt="img"></p>
+<p>那么用户访问，如何分配访问的服务器呢？我们根据用户的 IP 使用上面相同的函数 Hash 计算出哈希值，并确定此数据在环上的位置，从此位置沿环 <strong>顺时针行走</strong>，遇到的第一台服务器就是其应该定位到的服务器。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002844069-651038924.png" alt="img"></p>
+<h2 id="新增节点"><a href="#新增节点" class="headerlink" title="新增节点"></a>新增节点</h2><p>如果需要新增一个服务器，则只需要计算其hash值得到其在环上的位置。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002904562-1568019350.png" alt="img"></p>
+<p>此时用户1已和服务器绑定，用户能正常访问且服务不需要停机就可以自动切换。</p>
+<h2 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h2><p>如果这时某台服务器异常宕机或者运维撤销了一台服务器，那么这时会发生什么情况呢？如下图所示，假设我们撤销了服务器2。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002915918-282458940.png" alt="img"></p>
+<p>可以看出，我们服务仍然能正常提供服务，只不过这时用户2会被分配到服务1上了而已。</p>
+<p>通过一致性哈希的方式，我们提高了我们系统的容错性和可扩展性，分布式节点的变动不会影响整个系统的运行且不需要我们做一些人为的调整策略。</p>
+<h1 id="hash环的数据倾斜问题"><a href="#hash环的数据倾斜问题" class="headerlink" title="hash环的数据倾斜问题"></a>hash环的数据倾斜问题</h1><p>由于服务器在环上的位置是随机的，那么很可能多台服务器集中在环的一个部分，那么他们分配到的用户数量就会相对较少。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002943272-1633277740.png" alt="img"></p>
+<p>此时服务器0-服务器1之间的空间较大，用户落在这个区间的可能性也越大，用户访问服务器1的可能性也就越大。</p>
+<p>如果想要均衡的将缓存分布到每台服务器上，最好能让这每台服务器尽量多的、均匀的出现在hash环上</p>
+<p>既然没有多余的真正的物理服务器节点，我们就只能将现有的物理节点通过虚拟的方法复制出来。</p>
+<p>这些由实际节点虚拟复制而来的节点被称为 **”虚拟节点”**，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器IP或主机名的后面增加编号来实现。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002957752-1173428496.png" alt="img"></p>
+<p>此时，环形空间中不再有物理节点 服务器1，服务器2，……，替代的是只有虚拟节点 Server1-A，Server1-B，Server2-A，Server2-B，……。</p>
+<p>#总结</p>
+<p>在分布式存储和分布式缓存中，当服务节点发生变化时（新增或减少），一致性哈希算法并不能杜绝数据迁移的问题，但是可以有效避免数据的全量迁移，需要迁移的只是更改的节点和它的上游节点它们两个节点之间的那部分数据。</p>
+<p>另外，我们都知道 hash算法 有一个避免不了的问题，就是哈希冲突。对于用户请求IP的哈希冲突，其实只是不同用户被分配到了同一台服务器上，这个没什么影响。但是如果是服务节点有哈希冲突呢？这会导致两个服务节点在哈希环上对应同一个点，其实我感觉这个问题也不大，因为一方面哈希冲突的概率比较低，另一方面我们可以通过虚拟节点也可减少这种情况。</p>
+<h1 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jajian/p/10896624.html">https://www.cnblogs.com/jajian/p/10896624.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-算法-快速排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1145,101 +1234,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JUC学习（三）-阻塞队列与同步队列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/">JUC学习（三）-阻塞队列与同步队列</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/" class="archive-article-date">
-  	<time datetime="2021-01-22T02:13:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h1><h2 id="四组API"><a href="#四组API" class="headerlink" title="四组API"></a>四组API</h2><blockquote>
-<p>add与remove(抛出异常)</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ArrayBlockingQueue queue = <span class="keyword">new</span> ArrayBlockingQueue(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(queue.add(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由于队列大小为3，添加了4个元素，所以抛出异常。</p>
-<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/image-20210122102720950.png" alt="image-20210122102720950"></p>
-<p>remove操作同理。</p>
-<blockquote>
-<p>offer与poll（不抛出异常）</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ArrayBlockingQueue queue = <span class="keyword">new</span> ArrayBlockingQueue(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(queue.offer(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果如下：</p>
-<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/image-20210122102927134.png" alt="image-20210122102927134"></p>
-<p>并没有抛出异常，只是返回了一个false。</p>
-<blockquote>
-<p>put与take（不抛出异常，阻塞）</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        ArrayBlockingQueue queue = <span class="keyword">new</span> ArrayBlockingQueue(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            queue.put(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(queue.take());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果如下：</p>
-<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/image-20210122103900581.png" alt="image-20210122103900581"></p>
-<p>可以看出程序并没有结束，一直在等待第四个元素的获取。</p>
-<blockquote>
-<p>offer()，poll()设置超时放弃</p>
-</blockquote>
-<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/image-20210122104149723.png" alt="image-20210122104149723"></p>
-<p>需要设置时间和单位。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        ArrayBlockingQueue queue = <span class="keyword">new</span> ArrayBlockingQueue(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            queue.offer(i,<span class="number">2</span>,TimeUnit.SECONDS);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(queue.poll(<span class="number">2</span>,TimeUnit.SECONDS));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果如下：</p>
-<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/image-20210122104331602.png" alt="image-20210122104331602"></p>
-<p>程序正常结束，且最后结果为null。</p>
-<h1 id="同步队列"><a href="#同步队列" class="headerlink" title="同步队列"></a>同步队列</h1><p>只有一个元素，队列满了就等待take(),队列空了就等待put()。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        BlockingQueue queue = <span class="keyword">new</span> SynchronousQueue();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    queue.put(i);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    System.out.println(queue.take());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果是每一秒显示一个元素。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/">展开全文 >></a>
         </p>
       
 

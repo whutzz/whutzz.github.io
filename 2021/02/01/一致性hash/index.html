@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 个人博客</title>
+  <title>一致性hash | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="一致性哈希由来有效解决分布式存储结构下动态增加或删除节点所带来的问题，能保证这种不受实例数量变化影响而准确路由到正确的实例上的算法或实现机制。 基本思想一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数 H 的值空间为 0 ~ 2^32-1（即哈希值是一个32位无符号整形），整个哈希环如下：  假设我们有4台服务器，服务器0、服务器1、服务器2，服务器3，那么，在生产环境中，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一致性hash">
+<meta property="og:url" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一致性哈希由来有效解决分布式存储结构下动态增加或删除节点所带来的问题，能保证这种不受实例数量变化影响而准确路由到正确的实例上的算法或实现机制。 基本思想一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数 H 的值空间为 0 ~ 2^32-1（即哈希值是一个32位无符号整形），整个哈希环如下：  假设我们有4台服务器，服务器0、服务器1、服务器2，服务器3，那么，在生产环境中，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002756037-1214590265.png">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002853438-1820632464.png">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002844069-651038924.png">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002904562-1568019350.png">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002915918-282458940.png">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002943272-1633277740.png">
+<meta property="og:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002957752-1173428496.png">
+<meta property="article:published_time" content="2021-02-01T03:52:38.000Z">
+<meta property="article:modified_time" content="2021-02-01T07:39:50.208Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002756037-1214590265.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -136,295 +148,181 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-一致性hash" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一致性hash
+    </h1>
+  
+
+        
+        <a href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/" class="archive-article-date">
+  	<time datetime="2021-02-01T03:52:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-01</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一致性哈希由来"><a href="#一致性哈希由来" class="headerlink" title="一致性哈希由来"></a>一致性哈希由来</h1><p>有效解决分布式存储结构下<strong>动态增加或删除节点</strong>所带来的问题，能保证这种不受实例数量变化影响而准确路由到正确的实例上的算法或实现机制。</p>
+<h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数 H 的值空间为 <code>0 ~ 2^32-1</code>（即哈希值是一个32位无符号整形），整个哈希环如下：</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002756037-1214590265.png" alt="img"></p>
+<p>假设我们有4台服务器，服务器0、服务器1、服务器2，服务器3，那么，在生产环境中，这4台服务器肯定有自己的 IP 地址或主机名，我们使用它们各自的 IP 地址或主机名作为关键字进行哈希计算，使用哈希后的结果对<code>2^32</code>取模。</p>
+<p>最后会得到一个 <code>[0, 2^32-1]</code>之间的一个无符号整形数，这个整数就代表服务器的编号。同时这个整数肯定处于<code>[0, 2^32-1]</code>之间，那么，上图中的 hash 环上必定有一个点与这个整数对应。那么这个服务器就可以映射到这个环上。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002853438-1820632464.png" alt="img"></p>
+<p>那么用户访问，如何分配访问的服务器呢？我们根据用户的 IP 使用上面相同的函数 Hash 计算出哈希值，并确定此数据在环上的位置，从此位置沿环 <strong>顺时针行走</strong>，遇到的第一台服务器就是其应该定位到的服务器。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002844069-651038924.png" alt="img"></p>
+<h2 id="新增节点"><a href="#新增节点" class="headerlink" title="新增节点"></a>新增节点</h2><p>如果需要新增一个服务器，则只需要计算其hash值得到其在环上的位置。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002904562-1568019350.png" alt="img"></p>
+<p>此时用户1已和服务器绑定，用户能正常访问且服务不需要停机就可以自动切换。</p>
+<h2 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h2><p>如果这时某台服务器异常宕机或者运维撤销了一台服务器，那么这时会发生什么情况呢？如下图所示，假设我们撤销了服务器2。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002915918-282458940.png" alt="img"></p>
+<p>可以看出，我们服务仍然能正常提供服务，只不过这时用户2会被分配到服务1上了而已。</p>
+<p>通过一致性哈希的方式，我们提高了我们系统的容错性和可扩展性，分布式节点的变动不会影响整个系统的运行且不需要我们做一些人为的调整策略。</p>
+<h1 id="hash环的数据倾斜问题"><a href="#hash环的数据倾斜问题" class="headerlink" title="hash环的数据倾斜问题"></a>hash环的数据倾斜问题</h1><p>由于服务器在环上的位置是随机的，那么很可能多台服务器集中在环的一个部分，那么他们分配到的用户数量就会相对较少。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002943272-1633277740.png" alt="img"></p>
+<p>此时服务器0-服务器1之间的空间较大，用户落在这个区间的可能性也越大，用户访问服务器1的可能性也就越大。</p>
+<p>如果想要均衡的将缓存分布到每台服务器上，最好能让这每台服务器尽量多的、均匀的出现在hash环上</p>
+<p>既然没有多余的真正的物理服务器节点，我们就只能将现有的物理节点通过虚拟的方法复制出来。</p>
+<p>这些由实际节点虚拟复制而来的节点被称为 **”虚拟节点”**，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器IP或主机名的后面增加编号来实现。</p>
+<p><img src="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/1162587-20190522002957752-1173428496.png" alt="img"></p>
+<p>此时，环形空间中不再有物理节点 服务器1，服务器2，……，替代的是只有虚拟节点 Server1-A，Server1-B，Server2-A，Server2-B，……。</p>
+<p>#总结</p>
+<p>在分布式存储和分布式缓存中，当服务节点发生变化时（新增或减少），一致性哈希算法并不能杜绝数据迁移的问题，但是可以有效避免数据的全量迁移，需要迁移的只是更改的节点和它的上游节点它们两个节点之间的那部分数据。</p>
+<p>另外，我们都知道 hash算法 有一个避免不了的问题，就是哈希冲突。对于用户请求IP的哈希冲突，其实只是不同用户被分配到了同一台服务器上，这个没什么影响。但是如果是服务节点有哈希冲突呢？这会导致两个服务节点在哈希环上对应同一个点，其实我感觉这个问题也不大，因为一方面哈希冲突的概率比较低，另一方面我们可以通过虚拟节点也可减少这种情况。</p>
+<h1 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jajian/p/10896624.html">https://www.cnblogs.com/jajian/p/10896624.html</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一个没有感情的点赞机器<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/" class="archive-article-date">
-  	<time datetime="2021-01-22T02:13:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%98%9F%E5%88%97/">JUC学习（三）-阻塞队列与同步队列</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/21/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89-%E9%9B%86%E5%90%88%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-01-21T04:57:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/01/27/%E7%AE%97%E6%B3%95-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法-快速排序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/21/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89-%E9%9B%86%E5%90%88%E7%B1%BB/">JUC学习（二）-集合类</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/20/juc%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89-%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%94%81/" class="archive-article-date">
-  	<time datetime="2021-01-20T01:47:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/20/juc%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89-%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%90%8C%E6%AD%A5%E9%94%81/">juc学习（一）-线程创建与同步锁</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-01-15T03:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/15/Linux%E5%AD%A6%E4%B9%A0/">Linux学习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/13/https%E5%86%85%E5%AE%B9/" class="archive-article-date">
-  	<time datetime="2021-01-13T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/13/https%E5%86%85%E5%AE%B9/">https内容</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-01-12T11:27:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo搭建个人博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-  	<time datetime="2021-01-12T11:26:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/">dns系统</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-01-12T05:37:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/">操作系统学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-01-11T09:44:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/11/hello-world/" class="archive-article-date">
-  	<time datetime="2021-01-11T09:34:47.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -448,8 +346,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
