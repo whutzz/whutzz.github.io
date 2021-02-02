@@ -138,6 +138,129 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JUC学习（四）-线程池" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">JUC学习（四）-线程池</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="archive-article-date">
+  	<time datetime="2021-01-22T03:06:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="线程池的好处"><a href="#线程池的好处" class="headerlink" title="线程池的好处"></a>线程池的好处</h1><p>1.降低资源消耗（大小固定）</p>
+<p>2.提高效应速度（不用频繁创建和销毁线程）</p>
+<p>3.方便管理</p>
+<h1 id="三大方法"><a href="#三大方法" class="headerlink" title="三大方法"></a>三大方法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Executors.newSingleThreadExecutor(); <span class="comment">// 单一线程</span></span><br><span class="line">Executors.newFixedThreadPool(<span class="number">3</span>); <span class="comment">// 固定大小线程池</span></span><br><span class="line">Executors.newCachedThreadPool(); <span class="comment">// 可伸缩的线程池</span></span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>单一线程</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        ExecutorService executorService = Executors.newSingleThreadExecutor();<span class="comment">// 单一线程</span></span><br><span class="line"><span class="comment">//Executors.newFixedThreadPool(3); // 固定大小线程池</span></span><br><span class="line">        <span class="comment">//Executors.newCachedThreadPool(); // 可伸缩的线程池</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            executorService.execute(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName());</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210122113639076.png" alt="image-20210122113639076"></p>
+<p>可以看到所有任务都是由一个线程执行的。</p>
+<p>注意：此时程序并没有结束。<strong>线程池服务没有关闭！！！</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">executorService.shutdown();</span><br></pre></td></tr></table></figure>
+<p>注意使用结束后关闭服务。</p>
+<blockquote>
+<p>固定数目线程</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        ExecutorService executorService = Executors.newFixedThreadPool(<span class="number">3</span>);<span class="comment">// 单一线程</span></span><br><span class="line"><span class="comment">//Executors.newFixedThreadPool(3); // 固定大小线程池</span></span><br><span class="line">        <span class="comment">//Executors.newCachedThreadPool(); // 可伸缩的线程池</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            executorService.execute(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName());</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        executorService.shutdown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210122113902118.png" alt="image-20210122113902118"></p>
+<p>此时有三个线程执行。</p>
+<blockquote>
+<p>可伸缩的线程池</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();<span class="comment">// 单一线程</span></span><br><span class="line"><span class="comment">//Executors.newFixedThreadPool(3); // 固定大小线程池</span></span><br><span class="line">        <span class="comment">//Executors.newCachedThreadPool(); // 可伸缩的线程池</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            executorService.execute(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName());</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        executorService.shutdown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-3</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-5</span><br><span class="line">pool-1-thread-4</span><br><span class="line">pool-1-thread-6</span><br><span class="line">pool-1-thread-5</span><br><span class="line">pool-1-thread-6</span><br><span class="line">pool-1-thread-8</span><br><span class="line">pool-1-thread-7</span><br></pre></td></tr></table></figure>
+<p>由8个线程执行。</p>
+<p>当把任务数目调成15个时：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-4</span><br><span class="line">pool-1-thread-3</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-6</span><br><span class="line">pool-1-thread-6</span><br><span class="line">pool-1-thread-5</span><br><span class="line">pool-1-thread-7</span><br><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-5</span><br><span class="line">pool-1-thread-6</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-8</span><br><span class="line">pool-1-thread-3</span><br><span class="line">pool-1-thread-9</span><br></pre></td></tr></table></figure>
+<p>由9个线程执行。</p>
+<h1 id="7大参数"><a href="#7大参数" class="headerlink" title="7大参数"></a>7大参数</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;                                     ());</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                      <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                      <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">            (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                    <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                    <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以看到三大方法都是调用了ThreadPoolExecutor创建线程池的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize, //核心线程数量</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize, // 最大线程数量</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,//超时释放（存活时间）</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,//单位</span></span></span><br><span class="line"><span class="function"><span class="params">                        BlockingQueue&lt;Runnable&gt; workQueue,//阻塞队列</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,//线程工厂</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler//拒绝策略</span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>实际开发中使用ThreadPoolExecutor创建线程池！！！</strong></p>
+<p>核心线程数一直开放，核心线程池满了则进入阻塞队列，阻塞队列满了则开放最大线程池中的一部分，当阻塞队列空了，且非核心区域已经达到超时释放时间没有接到任务，那么他就会被释放。</p>
+<blockquote>
+<p>最大线程数目怎么定义</p>
+</blockquote>
+<p>1.cpu密集型：将最大线程数目定义为电脑cpu的核数</p>
+<p>2.io密集型：将最大线程数目定义为大于需要io设备的数目</p>
+<h1 id="四种拒绝策略"><a href="#四种拒绝策略" class="headerlink" title="四种拒绝策略"></a>四种拒绝策略</h1><blockquote>
+<p>AbortPolicy()直接抛出异常不处理</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ExecutorService executorService = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">2</span>,</span><br><span class="line">                <span class="number">5</span>,</span><br><span class="line">                <span class="number">3</span>,</span><br><span class="line">                TimeUnit.SECONDS,</span><br><span class="line">                <span class="keyword">new</span> LinkedBlockingDeque&lt;&gt;(<span class="number">3</span>),</span><br><span class="line">                Executors.defaultThreadFactory(),</span><br><span class="line">                <span class="keyword">new</span> ThreadPoolExecutor.AbortPolicy());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            executorService.execute(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName());</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        executorService.shutdown();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210122123104125.png" alt="image-20210122123104125"></p>
+<blockquote>
+<p>CallerRunsPolicy()返回给调用改线程的线程执行</p>
+</blockquote>
+<p><img src="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210122123413260.png" alt="image-20210122123413260"></p>
+<blockquote>
+<p>DiscardOldestPolicy()尝试最早的线程是不是执行完毕</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-3</span><br><span class="line">pool-1-thread-4</span><br><span class="line">pool-1-thread-5</span><br><span class="line"></span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>9个任务都被执行，且线程1被执行多次。</p>
+<blockquote>
+<p>DiscardPolicy()抛弃，不抛出异常</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pool-1-thread-1</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-3</span><br><span class="line">pool-1-thread-4</span><br><span class="line">pool-1-thread-5</span><br><span class="line">pool-1-thread-2</span><br><span class="line">pool-1-thread-5</span><br><span class="line">pool-1-thread-1</span><br></pre></td></tr></table></figure>
+<p>只有8个任务执行了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/22/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JUC学习（三）-阻塞队列与同步队列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1172,80 +1295,9 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/11/hello-world/" class="archive-article-date">
-  	<time datetime="2021-01-11T09:34:47.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/11/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
