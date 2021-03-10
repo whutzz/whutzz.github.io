@@ -138,6 +138,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JUC学习（七）-CAS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/">JUC学习（七）-CAS</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/" class="archive-article-date">
+  	<time datetime="2021-01-23T07:11:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CAS原理"><a href="#CAS原理" class="headerlink" title="CAS原理"></a>CAS原理</h1><p>CAS即compare and swap 比较并交换。</p>
+<p>对CAS的理解，CAS是一种无锁算法，CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">textThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        AtomicInteger atomicInteger =<span class="keyword">new</span> AtomicInteger(<span class="number">2021</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(atomicInteger.compareAndSet(<span class="number">2021</span>, <span class="number">2022</span>));</span><br><span class="line">        System.out.println(atomicInteger);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>compareAndSet中先判断atomicInteger是否等于2021，如果等于，则将其值设为2022</p>
+<p><img src="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/image-20210123152136131.png" alt="image-20210123152136131"></p>
+<p>底层实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndAddInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> var5;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            var5 = <span class="keyword">this</span>.getIntVolatile(var1, var2);</span><br><span class="line">        &#125; <span class="keyword">while</span>(!<span class="keyword">this</span>.compareAndSwapInt(var1, var2, var5, var5 + var4));<span class="comment">//自旋锁</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> var5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>compareAndSwapInt由native修饰，底层调用c++实现。</p>
+<p><strong>缺点</strong>：</p>
+<p>自旋锁循环等待耗时。</p>
+<p>ABA问题。</p>
+<h1 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h1><p><img src="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/image-20210123153028252.png" alt="image-20210123153028252"></p>
+<p>A要执行cas（1，2），B已经执行了cas（1，3）和cas（3，1），此时虽然内存中的值还是1但是已经被修改过了。</p>
+<p>解决方案：在包装类上加上版本号，每次修改完后修改版本号，这样A在执行cas时会发现版本号已经过期，就不会执行了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        AtomicStampedReference&lt;Integer&gt; atomicStampedReference=<span class="keyword">new</span> AtomicStampedReference&lt;&gt;(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(atomicStampedReference.compareAndSet(<span class="number">1</span>, <span class="number">2</span>,</span><br><span class="line">                    atomicStampedReference.getStamp(),</span><br><span class="line">                    atomicStampedReference.getStamp() + <span class="number">1</span></span><br><span class="line">            ));</span><br><span class="line">            System.out.println(atomicStampedReference.getReference());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            System.out.println(atomicStampedReference.compareAndSet(<span class="number">2</span>, <span class="number">1</span>,</span><br><span class="line">                    atomicStampedReference.getStamp(),</span><br><span class="line">                    atomicStampedReference.getStamp() + <span class="number">1</span></span><br><span class="line">            ));</span><br><span class="line">            System.out.println(atomicStampedReference.getStamp());</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">int</span> stemp=atomicStampedReference.getStamp();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            System.out.println(atomicStampedReference.compareAndSet(<span class="number">1</span>, <span class="number">20</span>,</span><br><span class="line">                    stemp, stemp + <span class="number">1</span>));</span><br><span class="line">            System.out.println(atomicStampedReference.getStamp());</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/image-20210123154934559.png" alt="image-20210123154934559"></p>
+<p>执行结果时第二个线程修改失败，返回的版本是3.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JUC学习（六）-volatile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1026,89 +1105,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/01/12/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-dns系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/">dns系统</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-  	<time datetime="2021-01-12T11:26:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="dns系统"><a href="#dns系统" class="headerlink" title="dns系统"></a>dns系统</h2><blockquote>
-<p>dns系统概述</p>
-</blockquote>
-<p>域名系统DNS（domain name system）是因特网使用的命名系统，用来把便于人们记忆的含有特定含义的主机名转换为便于机器处理的IP地址，值得注意的是，<strong>DNS系统采用C/S架构</strong>，<strong>其协议运行在UDP之上，使用53号端口</strong>。<br>DNS分为三个部分，层次域名空间，域名服务器和解析器。</p>
-<blockquote>
-<p>层次域名空间</p>
-</blockquote>
-<ol>
-<li>根域名服务器</li>
-<li>顶级域名服务器</li>
-<li>权限域名服务器</li>
-<li>本地域名服务器</li>
-</ol>
-<blockquote>
-<p>域名解析过程</p>
-</blockquote>
-<p>域名解析也就是把域名映射成IP地址或者把IP地址映射成为域名的过程。前者称为正向解析，后者称为反向解析。当客户端需要域名解析时，通过本机的DNS客户端构造一个DNS请求报文，以UDP数据报方式发往本地域名服务器。</p>
-<p>域名解析有两种方式：<strong>递归查询和迭代查询</strong></p>
-<p>递归查询说白了就是靠别人去帮你查，你把域名丢给本地域名服务器，本地域名服务器就丢给对应的根域名服务器，依次类推，最后返回给本地域名服务器。</p>
-<p>而迭代查询就是靠自己去查了，本地域名服务器先是访问根域名服务器，根域名服务器返回一个顶级域名服务器给本地域名服务器，然后本地域名服务器再去对应的顶级域名服务器查找，依次往后查找。</p>
-<p>一般域名服务器都会有个<strong>高速缓存</strong>，本地域名服务器会缓存一些你经常访问的域名，并定时更新。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/12/dns%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
         </p>
       
 
