@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 个人博客</title>
+  <title>个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="第六章第五章讲了数据复制，这章讲的数据分区，分区表示一台服务器存储不下过多数据，那么数据分多台服务器存储。 与复制不同的是，复制默认一台服务器可以存下所有数据。 分区要解决的基本问题1.分区负载问题。 一个良好的分区应该均衡负载数据，不能让过多的热点数据分布在一个分区，那样就出现的数据倾斜，压力负载到了一个服务器，而其他服务器压力很小，失去了分区的意义。 2.二级索引的分区 数据分区一般是由主键索">
+<meta property="og:type" content="article">
 <meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+<meta property="og:url" content="http://example.com/2021/04/01/DDIA(day%203,4,5)/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="第六章第五章讲了数据复制，这章讲的数据分区，分区表示一台服务器存储不下过多数据，那么数据分多台服务器存储。 与复制不同的是，复制默认一台服务器可以存下所有数据。 分区要解决的基本问题1.分区负载问题。 一个良好的分区应该均衡负载数据，不能让过多的热点数据分布在一个分区，那样就出现的数据倾斜，压力负载到了一个服务器，而其他服务器压力很小，失去了分区的意义。 2.二级索引的分区 数据分区一般是由主键索">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-01T10:32:23.206Z">
+<meta property="article:modified_time" content="2021-04-01T10:34:46.779Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
   
@@ -136,283 +140,222 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-DDIA(day 3,4,5)" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h1><p>第五章讲了数据复制，这章讲的数据分区，分区表示一台服务器存储不下过多数据，那么数据分多台服务器存储。</p>
+<p>与复制不同的是，复制默认一台服务器可以存下所有数据。</p>
+<h2 id="分区要解决的基本问题"><a href="#分区要解决的基本问题" class="headerlink" title="分区要解决的基本问题"></a>分区要解决的基本问题</h2><p>1.分区负载问题。</p>
+<p>一个良好的分区应该均衡负载数据，不能让过多的热点数据分布在一个分区，那样就出现的数据倾斜，压力负载到了一个服务器，而其他服务器压力很小，失去了分区的意义。</p>
+<p>2.二级索引的分区</p>
+<p>数据分区一般是由主键索引来进行分区，那么在对二级索引查找的时候就会非常不便利了，所以怎么在分区中配置二索引是一个问题。</p>
+<ul>
+<li>本地索引（各个分片维护自己的索引，需要分散/聚集（scatter/gather））</li>
+<li>全局索引（但是索引本身也可以分片，用户加速读取效率，读取更有效率，但是写入速度较慢且复杂，因为写入单个文档可能影响多个分区-Key 可 能位于不同的分区或者不同的节点上）</li>
+</ul>
+<p>3.查询请求的路由</p>
+<p>每个查询怎么分配到一个正确的分区。中间通常会设置一个路由层来处理这个问题。</p>
+<p>![image-20210401180340137](DDIA(day 3,4,5)/image-20210401180340137.png)</p>
+<h1 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h1><p>事务在mysql中已经学习的够多了，这里也大致看了一下，内容差不多。</p>
+<h2 id="复制与持久性"><a href="#复制与持久性" class="headerlink" title="复制与持久性"></a>复制与持久性</h2><p>持久性最早意味着是写入磁带来存档，之后演变为写入磁盘或 SSD，复制在第五章提到过。</p>
+<ul>
+<li>如果写入了磁盘但机器发生死机 ，即使数据没有丢失 ，在重启机器或者将磁盘转移到另一台机器完成之前，都无法访问任何数据 ，而基于复制的系统则可以继续可用</li>
+<li>某些故障，例如停电或一个软件bug ，可能在某个特定输入时触发了异常进而导致所有节点全部崩溃，甚至删除所有的副本内存中的数据会丢失，因此对于内存数据库，写入磁盘仍然是需要的。</li>
+<li>在异步复制系统中，当主节点不可用时，最近的写入操作因为可能没有及 时完成同步而导致更新丢失</li>
+<li>当电源突然断电时，特别对于固态硬盘 能发生意外</li>
+</ul>
+<h2 id="弱隔离级别"><a href="#弱隔离级别" class="headerlink" title="弱隔离级别"></a>弱隔离级别</h2><p>1.读取已提交（防止脏读脏写，不能防止读倾斜–不可重复读）</p>
+<p>2.可重复读–快照隔离级别（防止脏读脏写和读倾斜）</p>
+<ul>
+<li>当事务读数据库时·，通过事务ID 可以决定哪些对象可见， 哪些不可见。</li>
+</ul>
+<h2 id="防止丢失更新"><a href="#防止丢失更新" class="headerlink" title="防止丢失更新"></a>防止丢失更新</h2><ul>
+<li>原子写，如 update A set a = a + 1</li>
+<li>显式锁定, 如 select for update </li>
+<li>自动检测丢失的更新</li>
+<li>CAS, Update A set a = 1 where a = 0</li>
+</ul>
+<h2 id="写入偏差与幻读"><a href="#写入偏差与幻读" class="headerlink" title="写入偏差与幻读"></a>写入偏差与幻读</h2><p>产生条件：</p>
+<ul>
+<li>一个 SELECT 查询找出符合条件的行，并检查是否符合一些要求</li>
+<li>按照第一个查询的结果，应用代码决定是否继续</li>
+<li>如果应用决定继续操作，就执行写入（插入、更新或删除），并提交事务</li>
+</ul>
+<p>一个事务中的写入改变另一个事务的搜索查询的结果，被称为<strong>幻读</strong>。</p>
+<p>如果幻读的问题是没有对象可以加锁，也许可以人为地在数据库中引入一个锁对象。</p>
+<p>这种方法被称为<strong>物化冲突</strong>，因为它将幻读变为数据库中一组具体 行上的锁冲突。不幸的是，弄清楚如何物化冲突可能很难，也很容易出错，而让并发控制机制泄漏到应用数据模型是很丑陋的做法。出于这些原因，如果没有其他办法可以实 现，物化冲突应被视为最后的手段。在大多数情况下。<strong>可串行化 的隔离级别 是更可取的</strong>。</p>
+<h2 id="可串行化"><a href="#可串行化" class="headerlink" title="可串行化"></a>可串行化</h2><p>可串行化隔离通常被认为是最强的隔离级别。它保证即使事务可能会井行执行，但最 终的结果与每次 个即串行执行结果相同。</p>
+<p>广泛使用的序列化算法：两阶段锁定</p>
+<ul>
+<li>两阶段锁定对锁的要求更强。只要没有写入，就允许多个事务同时读取同一个对象。但对象只要有写入（修改或删除），就需要独占访问（exclusive access） 权限 （读取旧版本的对象在2PL下是不可接受的）</li>
+<li>在2PL中，写入不仅会阻塞其他写入，也会阻塞读，反之亦然。快照隔离使得读不阻塞写，写 也不阻塞读，这是2PL和快照隔离之间的关键区别。</li>
+<li>具有可串行化隔离级别的数据库必须防止幻读：从概念上讲，我们需要一<strong>个谓词锁（predicate lock）</strong>。它类似于前面描述的共享/排它锁，但不属于特定的对象（例如，表中的一行），它属于所有符合某些搜 索条件的对象。</li>
+<li>不幸的是谓词锁性能不佳：如果活跃事务持有很多锁，检查匹配的锁会非常耗时。因此，大多数使用2PL的数据库实际上实现了<strong>索引范围锁</strong>（也称为间隙锁（next-key locking））。索引范围锁并不像谓词锁那样精确（它们可能会锁 定更大范围的对象，而不是维持可串行化所必需的范围），但是由于它们的开销较低，所以 是一个很好的折衷</li>
+</ul>
+<p>悲观与乐观的并发控制</p>
+<ul>
+<li>两阶段锁是一种所谓的<strong>悲观并发控制机制（pessimistic）</strong> ：它是基于这样的原则：如果有事情可能出错（如另一个事务所持有的锁所表示的），最好等到情况安全后再做任何事情。 </li>
+<li>快照隔离是一种乐观（optimistic） 的并发控制技术</li>
+</ul>
+<p>搬了一下书上的小结…………….</p>
+<p><strong>脏读</strong> </p>
+<p>客户端读到了其他客户端尚未提交的写人。读－提交以及更强的隔离级别可以防 止脏读 。</p>
+<p><strong>脏写</strong> </p>
+<p>客户端覆盖了另一个客户端尚未提交的写入。几乎所有的数据库实现都可以防止 脏写。 </p>
+<p><strong>读倾斜（不可重复读）</strong> </p>
+<p>客户在不同的时间点看到了不同值。快照隔离是最用的防范手段， 即事务总是 在某个时间点的一致性快照中读取数据。通常采用多版本井发控制（MVCC ）来 实现快照隔离。 </p>
+<p><strong>更新丢失</strong> </p>
+<p>两个客户端同时执行读－修改－写入操作序列，出现了其中 个覆盖了另一个的 入，但又没有包含对方最新值的情况，最终导致了部分修改数据发生了丢失。快照隔离的一些实现可以自动防止这种异常，而另 些则需要手动锁定查询结果 (SELECT FOR UPDATE ）。 </p>
+<p><strong>写倾斜</strong> </p>
+<p>事务首先查询数据，根据返回的结果而作出某些决定，然后修改数据库。当事务 提交时，支持决定的前提条件已不再成立。只有可串行化的隔离才能防止这种异 常。</p>
+<p> <strong>幻读</strong> </p>
+<p>事务读取了某些符合查询条件的对象，同时另 客户端执行写入，改变了先前 的查询结果。快照隔离可以防止简单的幻读，但写倾斜情况需要特殊处理，例 如采用区间范围锁。 </p>
+<p>弱隔离级别可以防止上面的某些异常，但还需要应用开发人员手动处理其他复杂情况 （例如，显式加锁） 。只有可串行化的隔离可以防止所有这些问题。我们主要讨论了 <strong>实现可串行化隔离的三种不同方位</strong>： </p>
+<p><strong>严格串行执行事务</strong> </p>
+<p>如果每个事务的执行速度非常快，且单个CPU核可以满足事务的吞吐量要求，严 格串行执行是 个非常简单有效的方案。</p>
+<p><strong>两阶段加锁</strong> </p>
+<p>几十年来，这 直是实现可串行化的标准方式，但还是有很多系统出于性能原因 而放弃使用它。 </p>
+<p><strong>可串行化的快照隔离 （SSI)</strong></p>
+<p>一种最新算法， 可以避免前面方法的大部分缺点 。它秉持乐观预期的原则，允 许多个事务并发执行而不互相阻塞；仅当事务尝试提交肘，才检查可能的冲突， 如果发现违背了串行化，则某些事务会被中止。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一个没有感情的点赞机器<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/17/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2021-02-17T12:37:46.123Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-17</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/04/01/DDIA(day%203,4,5)/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/09/HashMap%E7%9A%84put%E8%BF%87%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2021-02-09T03:21:01.472Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/02/%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%ACk%E5%A4%A7/" class="archive-article-date">
-  	<time datetime="2021-02-02T07:16:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-02</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/02/%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%ACk%E5%A4%A7/">两个有序数组的第k大</a>
-    </h1>
+    <a href="/2021/04/01/DDIA(day%202)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
+  
+    <a href="/2021/04/01/TCP/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/" class="archive-article-date">
-  	<time datetime="2021-02-01T03:52:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-01</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/">一致性hash</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/27/%E7%AE%97%E6%B3%95-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2021-01-27T04:25:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/27/%E7%AE%97%E6%B3%95-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">算法-快速排序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/26/java%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2021-01-26T04:03:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/26/java%E9%9B%86%E5%90%88/">java集合</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/25/MySql/" class="archive-article-date">
-  	<time datetime="2021-01-25T02:51:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/25/MySql/">MySql</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/25/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2021-01-25T02:09:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/25/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">布隆过滤器</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/24/JVM/" class="archive-article-date">
-  	<time datetime="2021-01-24T03:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/24/JVM/">JVM</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/" class="archive-article-date">
-  	<time datetime="2021-01-23T07:11:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/">JUC学习（七）-CAS</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -436,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

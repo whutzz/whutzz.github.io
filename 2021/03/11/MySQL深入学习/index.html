@@ -6,15 +6,36 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 个人博客</title>
+  <title>个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="MySQL1、认识mysql1、建立连接 客户端可以采用 TCP&#x2F;IP 和 命名管道或者共享内存 (客户端和服务端一台机）以及 Unix域套接字与服务端建立连接 2、查询缓存 对普通的查询一般都会缓存，且对于不同的客户端缓存都生效。 缓存对字符敏感（空格，注释，大小写都会导致缓存不命中） 查询中含有系统函数则不会缓存 数据表进行更新后缓存失效  虽然查询缓存有时可以提升系统性能，但也不得不因维护这">
+<meta property="og:type" content="article">
 <meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+<meta property="og:url" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="MySQL1、认识mysql1、建立连接 客户端可以采用 TCP&#x2F;IP 和 命名管道或者共享内存 (客户端和服务端一台机）以及 Unix域套接字与服务端建立连接 2、查询缓存 对普通的查询一般都会缓存，且对于不同的客户端缓存都生效。 缓存对字符敏感（空格，注释，大小写都会导致缓存不命中） 查询中含有系统函数则不会缓存 数据表进行更新后缓存失效  虽然查询缓存有时可以提升系统性能，但也不得不因维护这">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312092340668.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312100737137.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312102208848.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312104807502.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/blog/source_posts/MySQL深入学习/image-20210312110603283.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/1">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312132324501.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312151835903.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/tablestruct.jpg">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210313083317460.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/stuts.jpg">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210313145503124.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314084312355.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314085418475.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314085554860.png">
+<meta property="og:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314091137560.png">
+<meta property="article:published_time" content="2021-03-11T14:20:54.948Z">
+<meta property="article:modified_time" content="2021-03-14T02:51:26.495Z">
 <meta property="article:author" content="whut zz">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312092340668.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -136,283 +157,574 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MySQL深入学习" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="1、认识mysql"><a href="#1、认识mysql" class="headerlink" title="1、认识mysql"></a>1、认识mysql</h2><p>1、建立连接</p>
+<p>客户端可以采用 <code>TCP/IP</code> 和 <code>命名管道</code>或者<code>共享内存</code> (客户端和服务端一台机）以及 <code>Unix域套接字</code>与服务端建立连接</p>
+<p>2、查询缓存</p>
+<p>对普通的查询一般都会缓存，且对于不同的客户端缓存都生效。</p>
+<p>缓存对字符敏感（空格，注释，大小写都会导致缓存不命中）</p>
+<p>查询中含有系统函数则不会缓存</p>
+<p>数据表进行更新后缓存失效</p>
+<blockquote>
+<p>虽然查询缓存有时可以提升系统性能，但也不得不因维护这块缓存而造成一些开销，比如每次都要去查询缓存中检索，查询请求处理完需要更新查询缓存，维护该查询缓存对应的内存区域。从MySQL 5.7.20开始，不推荐使用查询缓存，并在MySQL 8.0中删除。</p>
+</blockquote>
+<p>3、词法分析</p>
+<p>分析查询语句时候有语法问题，查询语句是否合法</p>
+<p>获得查询的表，查询条件</p>
+<p>4、查询优化</p>
+<p>对需要查询的方案进行优化，具体后面探讨</p>
+<p>5、存储引擎</p>
+<p>存住引擎也就是表管理器。</p>
+<p>物理上如何表示记录，怎么从表中读取数据，怎么把数据写入具体的物理存储器上，这都是<code>存储引擎</code>负责的事情。</p>
+<h2 id="2、启动选项和系统变量"><a href="#2、启动选项和系统变量" class="headerlink" title="2、启动选项和系统变量"></a>2、启动选项和系统变量</h2><p>默认配置：</p>
+<p>客户端数量：151</p>
+<p>执行引擎：InnoDB</p>
+<p><strong>系统变量可以通过配置文件和启动命令来更改和指定</strong></p>
+<p>为了解决每个客户端需要不同的配置，引入了session变量，此变量是用户私有，其默认值是相应的全局变量的值，例如：全局默认执行引擎是InnoDB，那么每次新用户的执行引擎也是InnoDB，可以改变这个私有值而不印象到其他用户的执行引擎。</p>
+<h2 id="3、字符集和比较规则"><a href="#3、字符集和比较规则" class="headerlink" title="3、字符集和比较规则"></a>3、字符集和比较规则</h2><p><strong>MySQL中默认的<code>utf8</code>使用的是<code>utf8mb3</code>，使用1~3个字节来表示字符，正宗的<code>utf8</code>是<code>utf8mb4</code>，若需要添加emoji表情就使用<code>utf8mb4</code></strong></p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312092340668.png" alt="image-20210312092340668"></p>
+<p><code>utf8</code>的默认比较规则<code>utf8_general_ci</code>,不区分大小写。</p>
+<p>字符串比较级别：</p>
+<p>1、服务器级别</p>
+<p>服务器默认的字符使用集和服务器默认的字符比较方法。</p>
+<p>默认使用<code>utf8</code> 比较方案<code>utf8_general_ci</code></p>
+<p>2、数据库级别</p>
+<p>如果不进行指定则使用服务器指定的字符比较。</p>
+<p>3、表级别</p>
+<p>如果不指定则使用数据库指定的字符比较。</p>
+<p>4、列级别</p>
+<p>如果不指定则使用数据表指定的字符比较。</p>
+<p>字符串比较级别</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312100737137.png" alt="image-20210312100737137"></p>
+<p><strong>服务器接收到客户端发送来的请求其实是一串二进制的字节，它会认为这串字节采用的字符集是<code>character_set_client</code>，然后把这串字节转换为<code>character_set_connection</code>字符集编码的字符。</strong></p>
+<p><strong>由于我的计算机上<code>character_set_client</code>的值是<code>utf8</code>，首先会按照<code>utf8</code>字符集对字节串<code>0xE68891</code>进行解码，得到的字符串就是<code>&#39;我&#39;</code>，然后按照<code>character_set_connection</code>代表的字符集，也就是<code>gbk</code>进行编码，得到的结果就是字节串<code>0xCED2</code>。</strong></p>
+<p>查看<code>MySQL</code>中查看支持的字符集和比较规则的语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> (<span class="type">CHARACTER</span> <span class="keyword">SET</span><span class="operator">|</span>CHARSET) [<span class="keyword">LIKE</span> 匹配的模式];</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">COLLATION</span> [<span class="keyword">LIKE</span> 匹配的模式];</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4、InnoDB记录结构"><a href="#4、InnoDB记录结构" class="headerlink" title="4、InnoDB记录结构"></a>4、InnoDB记录结构</h2><p>InnoDB页大小一般为16K。</p>
+<h3 id="行格式"><a href="#行格式" class="headerlink" title="行格式"></a>行格式</h3><p>1、compact</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312102208848.png" alt="image-20210312102208848"></p>
+<p>变长字段长度列表存放每个列中的长度，且是逆序存放。不存储NULL值列。</p>
+<p>列如列1为<code>aaa</code> 列2为<code>aa</code> 列3为 <code>a</code> 那么列表存放的是 01 02 03.（感觉可能是方便插入）</p>
+<p>null值表存放的是列中的null值位置，若该列不存放null即NOT NULL 也就没有这个列表了，其存放方法也是逆序存放。</p>
+<p>每一行默认有3列：</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312104807502.png" alt="image-20210312104807502"></p>
+<p><strong>主键的生成策略：优先使用用户自定义主键作为主键，如果用户没有定义主键，则选取一个<code>Unique</code>键作为主键，如果表中连<code>Unique</code>键都没有定义的话，则<code>InnoDB</code>会为表默认添加一个名为<code>row_id</code>的隐藏列作为主键。</strong></p>
+<p>2、Redundant行格式</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/blog\source_posts\MySQL深入学习\image-20210312110603283.png" alt="redundant"></p>
+<p>NULL值处理：redundant没有NULL值表，所以在字段偏移列表添加了一个NULL值判断位。</p>
+<blockquote>
+<p>对于<code>Compact</code>和<code>Redundant</code>行格式来说，如果某一列中的数据非常多的话，在本记录的真实数据处只会存储该列的前<code>768</code>个字节的数据和一个指向其他页的地址，然后把剩下的数据存放到其他页中，这个过程也叫做<code>行溢出</code>，存储超出<code>768</code>字节的那些页面也被称为<code>溢出页</code>。</p>
+</blockquote>
+<p>3、Dynamic和Compressed行格式</p>
+<p>下边要介绍另外两个行格式，<code>Dynamic</code>和<code>Compressed</code>行格式，我现在使用的<code>MySQL</code>版本是<code>5.7</code>，它的默认行格式就是<code>Dynamic</code>，这俩行格式和<code>Compact</code>行格式挺像，只不过在处理<code>行溢出</code>数据时有点儿分歧，它们不会在记录的真实数据处存储字段真实数据的前<code>768</code>个字节，而是把所有的字节都存储到其他页面中，只在记录的真实数据处存储其他页面的地址，就像这样：</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/1" alt="image_1conbtnmr1sg1hao1nf41pi1eb72a.png-29.9kB"></p>
+<p><code>Compressed</code>行格式和<code>Dynamic</code>不同的一点是，<code>Compressed</code>行格式会采用压缩算法对页面进行压缩，以节省空间。</p>
+<blockquote>
+<p>一个页一般是<code>16KB</code>，当记录中的数据太多，当前页放不下的时候，会把多余的数据存储到其他页中，这种现象称为<code>行溢出</code>。</p>
+</blockquote>
+<h2 id="5、InnoDB数据页结构"><a href="#5、InnoDB数据页结构" class="headerlink" title="5、InnoDB数据页结构"></a>5、InnoDB数据页结构</h2><h3 id="数据页结构"><a href="#数据页结构" class="headerlink" title="数据页结构"></a>数据页结构</h3><p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312132324501.png" alt="image-20210312132324501"></p>
+<ul>
+<li><code>File Header</code>，<strong>表示页的一些通用信息</strong>，占固定的38字节。包括页指针指向下一个页和上一个页。</li>
+<li><code>Page Header</code>，<strong>表示数据页专有的一些信息</strong>，占固定的56个字节。</li>
+<li><code>Infimum + Supremum</code>，两个虚拟的伪记录，分别表示页中的最小和最大记录，占固定的<code>26</code>个字节。</li>
+<li><code>User Records</code>：真实存储我们插入的记录的部分，大小不固定。</li>
+<li><code>Free Space</code>：页中尚未使用的部分，大小不确定。</li>
+<li><code>Page Directory</code>：页中的某些记录相对位置，<strong>也就是各个槽在页面中的地址偏移量</strong>，大小不固定，插入的记录越多，这个部分占用的空间越多。</li>
+<li><code>File Trailer</code>：用于检验页是否完整的部分（<strong>与File Header中的同步码判断，File Header中的同步码会先刷到磁盘</strong>），占用固定的8个字节。</li>
+</ul>
+<p><strong>当free Space被申请满了之后就会创建一个新的页。</strong></p>
+<p><strong>行记录使用链表连接，指针在每个行记录的头信息中给出，指向下一个行（主键递增的下一个）的头部信息和行数据之间的位置。</strong></p>
+<p><strong>被删除的行不会立马被删除，而是把头部中的<code>delete_mask</code>标志位设为1.</strong></p>
+<h2 id="6、b-树索引"><a href="#6、b-树索引" class="headerlink" title="6、b+树索引"></a>6、b+树索引</h2><p>头信息里的<code>record_type</code>属性来区分是索引页表还是数据页表。</p>
+<ul>
+<li><code>0</code>：普通的用户记录</li>
+<li><code>1</code>：目录项记录</li>
+<li><code>2</code>：最小记录</li>
+<li><code>3</code>：最大记录</li>
+</ul>
+<p>一个索引结构</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210312151835903.png" alt="image-20210312151835903"></p>
+<p>索引中查也是通过页目录来进行二分查找。</p>
+<p>聚簇索引与非聚簇索引区别？ ~~~~~</p>
+<p><strong>MyISAM中索引的叶子节点存储的是数据地址。</strong></p>
+<h3 id="索引的使用"><a href="#索引的使用" class="headerlink" title="索引的使用"></a>索引的使用</h3><p>索引的缺点：</p>
+<p>1、空间消耗大</p>
+<p>2、每次增删改时每个索引都需要修改，时间消耗较大。</p>
+<p>最左匹配列~~~</p>
+<p>对于模糊查找%abc不走索引，可以将数据反着存</p>
+<p>如果索引列在比较表达式中不是以单独列的形式出现，而是以某个表达式，或者函数调用形式出现的话，是用不到索引的。</p>
+<h3 id="索引的创建原则"><a href="#索引的创建原则" class="headerlink" title="索引的创建原则"></a>索引的创建原则</h3><p>考虑搜索、排序和分组的列</p>
+<p>考虑列的区分度，例如男女这种就没必要存索引</p>
+<p>列的数据类型尽量小</p>
+<p>可以只对字符串值的前缀建立索引（节省空间，但是排序就不支持了）</p>
+<p>只有索引列在比较表达式中单独出现才可以适用索引</p>
+<p>为了尽可能少的让<code>聚簇索引</code>发生页面分裂和记录移位的情况，建议让主键拥有<code>AUTO_INCREMENT</code>属性。</p>
+<p>定位并删除表中的重复和冗余索引</p>
+<p>尽量使用<code>覆盖索引</code>进行查询，避免<code>回表</code>带来的性能损耗。</p>
+<h2 id="7、数据目录"><a href="#7、数据目录" class="headerlink" title="7、数据目录"></a>7、数据目录</h2><p>每个数据库都在数据目录下有个子目录也就是子文件夹</p>
+<p>每个数据表包含两种信息：</p>
+<p>1、表的结构（列结构，索引啥的）名称：<code>表名.frm</code></p>
+<p>2、表的数据</p>
+<p>对于InnoDB使用系统表空间（公用）独立表空间（私有）</p>
+<p>对于MyISAM一个表有三个文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test.frm</span><br><span class="line">test.MYD</span><br><span class="line">test.MYI</span><br></pre></td></tr></table></figure>
+<p>.frm是表结构数据 </p>
+<p>.MYD是用户数据</p>
+<p>.MYI是索引数据</p>
+<h2 id="8、表的存储结构"><a href="#8、表的存储结构" class="headerlink" title="8、表的存储结构"></a>8、表的存储结构</h2><p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/tablestruct.jpg" alt="img"></p>
+<h2 id="9、单表访问的方法"><a href="#9、单表访问的方法" class="headerlink" title="9、单表访问的方法"></a>9、单表访问的方法</h2><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>查找的数据是常数级别，且都可以走索引。</p>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><p>查找的值可能有多个，或者是查找NULL值。</p>
+<h3 id="ref-or-NULL"><a href="#ref-or-NULL" class="headerlink" title="ref_or_NULL"></a>ref_or_NULL</h3><p>查找的值即不确定又带有NULL值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 <span class="operator">=</span> <span class="string">&#x27;abc&#x27;</span> <span class="keyword">OR</span> key1 <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+<p><code>abc</code>不止一个</p>
+<h3 id="range"><a href="#range" class="headerlink" title="range"></a>range</h3><p>查找的字段是一个范围，或者说是一个集合</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key2 <span class="keyword">IN</span> (<span class="number">1438</span>, <span class="number">6328</span>) <span class="keyword">OR</span> (key2 <span class="operator">&gt;=</span> <span class="number">38</span> <span class="keyword">AND</span> key2 <span class="operator">&lt;=</span> <span class="number">79</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>IN操作符的效果和若干个等值匹配操作符<code>=</code>之间用<code>OR</code>连接起来是一样的</p>
+</blockquote>
+<h3 id="index"><a href="#index" class="headerlink" title="index"></a>index</h3><p>查找的字段已经包含在二级索引中，因为二级索引中存放的数据比聚集索引少，所以这时候走二级索引全局查找比聚集索引块。</p>
+<h3 id="all"><a href="#all" class="headerlink" title="all"></a>all</h3><p>全局查找</p>
+<p>注意：</p>
+<p>一个使用到索引的搜索条件和没有使用该索引的搜索条件使用<code>OR</code>连接起来后是无法使用该索引的</p>
+<h3 id="索引合并"><a href="#索引合并" class="headerlink" title="索引合并"></a>索引合并</h3><p>1、交集合并</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> <span class="keyword">AND</span> key3 <span class="operator">=</span> <span class="string">&#x27;b&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>从<code>idx_key1</code>二级索引对应的<code>B+</code>树中取出<code>key1 = &#39;a&#39;</code>的相关记录。</li>
+<li>从<code>idx_key3</code>二级索引对应的<code>B+</code>树中取出<code>key3 = &#39;b&#39;</code>的相关记录。</li>
+<li>二级索引的记录都是由<code>索引列 + 主键</code>构成的，所以我们可以计算出这两个结果集中<code>id</code>值的交集</li>
+<li>按照上一步生成的<code>id</code>值列表进行回表操作，也就是从聚簇索引中把指定<code>id</code>值的完整用户记录取出来，返回给用户。</li>
+</ul>
+<p>2、Union合并</p>
+<h2 id="10、连接查询"><a href="#10、连接查询" class="headerlink" title="10、连接查询"></a>10、连接查询</h2><h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>内连接相当于inner join 取交集，和直接用from t1 ， t2是一样的效果</p>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>外连接又分为左外连接和右外连接，他们的区别就在于是用左边的表作驱动表还是右边的表，语句 left join 和 right join</p>
+<h3 id="连接查询原理"><a href="#连接查询原理" class="headerlink" title="连接查询原理"></a>连接查询原理</h3><p>连接查询每次先用单表访问查询驱动表，得到驱动表的数据再去查询被驱动表，其中驱动表中有几条数据那么被驱动表就要比对多少次。</p>
+<p>由于表结构都是从磁盘中加载，而被驱动表可能非常大，那么在一次访问被驱动表中可能要进行多次io操作，那么多次访问被驱动表的代价就非常大。</p>
+<p>基于上面的问题，mysql提出了join buffer的概念</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210313083317460.png" alt="image-20210313083317460"></p>
+<h2 id="11、优化器"><a href="#11、优化器" class="headerlink" title="11、优化器"></a>11、优化器</h2><p><code>MySQL</code>的查询优化器会找出执行该语句所有可能使用的方案，对比之后找出成本最低的方案，这个成本最低的方案就是所谓的<code>执行计划</code>，之后才会调用存储引擎提供的接口真正的执行查询，这个过程总结一下就是这样：</p>
+<ol>
+<li>根据搜索条件，找出所有可能使用的索引</li>
+<li>计算全表扫描的代价</li>
+<li>计算使用不同索引执行查询的代价</li>
+<li>对比各种执行方案的代价，找出成本最低的那一个</li>
+</ol>
+<h2 id="12、子查询"><a href="#12、子查询" class="headerlink" title="12、子查询"></a>12、子查询</h2><h3 id="标量子查询"><a href="#标量子查询" class="headerlink" title="标量子查询"></a>标量子查询</h3><p>子查询返回的表只有一列,且只有一行数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (<span class="keyword">SELECT</span> m1 <span class="keyword">FROM</span> t1 LIMIT <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="列子查询"><a href="#列子查询" class="headerlink" title="列子查询"></a>列子查询</h3><p>子查询返回一个列，但有多行数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t1 <span class="keyword">WHERE</span> m1 <span class="keyword">IN</span> (<span class="keyword">SELECT</span> m2 <span class="keyword">FROM</span> t2);</span><br></pre></td></tr></table></figure>
+<h3 id="行子查询"><a href="#行子查询" class="headerlink" title="行子查询"></a>行子查询</h3><p>子查询返回多个列，一行数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * <span class="function">FROM t1 <span class="title">WHERE</span> <span class="params">(m1, n1)</span> </span>= (SELECT m2, n2 FROM t2 LIMIT <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="表子查询"><a href="#表子查询" class="headerlink" title="表子查询"></a>表子查询</h3><p>返回记录包含多列多行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t1 <span class="keyword">WHERE</span> (m1, n1) <span class="keyword">IN</span> (<span class="keyword">SELECT</span> m2, n2 <span class="keyword">FROM</span> t2);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>不允许在一条语句中增删改某个表的记录时同时还对该表进行子查询。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">DELETE</span> <span class="keyword">FROM</span> t1 <span class="keyword">WHERE</span> m1 <span class="operator">&lt;</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(m1) <span class="keyword">FROM</span> t1);</span><br><span class="line"></span><br><span class="line">ERROR <span class="number">1093</span> (HY000): You can<span class="string">&#x27;t specify target table &#x27;</span>t1<span class="string">&#x27; for update in FROM clause</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>对于<code>[NOT] IN/ANY/SOME/ALL</code>子查询来说，子查询中不允许有<code>LIMIT</code>语句。</p>
+</li>
+<li><p>在<code>SELECT</code>子句中的子查询必须是标量子查询。</p>
+</li>
+<li><p>子查询必须用小括号扩起来。</p>
+</li>
+<li><p>子查询使用<code>=</code>、<code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code>、<code>&lt;&gt;</code>、<code>!=</code>、<code>&lt;=&gt;</code>等操作符和某个操作数组成一个布尔表达式，这样的子查询必须是标量子查询或者行子查询</p>
+</li>
+<li><p>in(子查询)中的子查询结构太大可能就会加上索引，查找速度更快。</p>
+</li>
+</ul>
+<h2 id="13、explain"><a href="#13、explain" class="headerlink" title="13、explain"></a>13、explain</h2><p>1、id</p>
+<p>记录select语句每个表对应的select标志，看查询的表是否在一个select语句中执行（若在子查询中执行则id不一致，当优化器将这个语句优化为连接查询时则不行）</p>
+<p>2、table</p>
+<p>表示查询的表名</p>
+<p>3、select_type</p>
+<p>表示查询的方式</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SIMPLE</code></td>
+<td>查询语句中不包含<code>UNION</code>或者子查询的查询都算作是<code>SIMPLE</code>类型</td>
+</tr>
+<tr>
+<td><code>PRIMARY</code></td>
+<td>对于包含<code>UNION</code>、<code>UNION ALL</code>或者子查询的大查询来说，它是由几个小查询组成的，其中最左边的那个查询的<code>select_type</code>值就是<code>PRIMARY</code></td>
+</tr>
+<tr>
+<td><code>UNION</code></td>
+<td>对于包含<code>UNION</code>或者<code>UNION ALL</code>的大查询来说，它是由几个小查询组成的，其中除了最左边的那个小查询以外，其余的小查询的<code>select_type</code>值就是<code>UNION</code></td>
+</tr>
+<tr>
+<td><code>UNION RESULT</code></td>
+<td>MySQL<code>选择使用临时表来完成</code>UNION<code>查询的去重工作，针对该临时表的查询的</code>select_type<code>就是</code>UNION RESULT</td>
+</tr>
+<tr>
+<td><code>SUBQUERY</code></td>
+<td>如果包含子查询的查询语句不能够转为对应的<code>semi-join</code>的形式，并且该子查询是不相关子查询，并且查询优化器决定采用将该子查询物化的方案来执行该子查询时，该子查询的第一个<code>SELECT</code>关键字代表的那个查询的<code>select_type</code>就是<code>SUBQUERY</code></td>
+</tr>
+<tr>
+<td><code>DEPENDENT SUBQUERY</code></td>
+<td>如果包含子查询的查询语句不能够转为对应的<code>semi-join</code>的形式，并且该子查询是相关子查询，则该子查询的第一个<code>SELECT</code>关键字代表的那个查询的<code>select_type</code>就是<code>DEPENDENT SUBQUERY</code></td>
+</tr>
+<tr>
+<td><code>DEPENDENT UNION</code></td>
+<td>在包含<code>UNION</code>或者<code>UNION ALL</code>的大查询中，如果各个小查询都依赖于外层查询的话，那除了最左边的那个小查询之外，其余的小查询的<code>select_type</code>的值就是<code>DEPENDENT UNION</code></td>
+</tr>
+<tr>
+<td><code>DERIVED</code></td>
+<td>对于采用物化的方式执行的包含派生表的查询，该派生表对应的子查询的<code>select_type</code>就是<code>DERIVED</code></td>
+</tr>
+<tr>
+<td><code>MATERIALIZED</code></td>
+<td>当查询优化器在执行包含子查询的语句时，选择将子查询物化之后与外层查询进行连接查询时，该子查询对应的<code>select_type</code>属性就是<code>MATERIALIZED</code></td>
+</tr>
+<tr>
+<td><code>UNCACHEABLE SUBQUERY</code></td>
+<td>A subquery for which the result cannot be cached and must be re-evaluated for each row of the outer query</td>
+</tr>
+<tr>
+<td><code>UNCACHEABLE UNION</code></td>
+<td>The second or later select in a UNION that belongs to an uncacheable subquery (see UNCACHEABLE SUBQUERY)</td>
+</tr>
+</tbody></table>
+<p>4、partions</p>
+<p>分区</p>
+<p>5、type</p>
+<p>前面提到过的单表查询方法。</p>
+<p>6、possible_keys和key</p>
+<p>possible_keys是可能使用的key，在优化器优化时进行判断所需要的key，</p>
+<p>key代表实际使用的key</p>
+<p>7、key_len</p>
+<p><code>key_len</code>列表示当优化器决定使用某个索引执行查询时，该索引记录的最大长度，它是由这三个部分构成的：</p>
+<ul>
+<li>对于使用固定长度类型的索引列来说，它实际占用的存储空间的最大长度就是该固定值，对于指定字符集的变长类型的索引列来说，比如某个索引列的类型是<code>VARCHAR(100)</code>，使用的字符集是<code>utf8</code>，那么该列实际占用的最大存储空间就是<code>100 × 3 = 300</code>个字节。</li>
+<li>如果该索引列可以存储<code>NULL</code>值，则<code>key_len</code>比不可以存储<code>NULL</code>值时多1个字节。</li>
+<li>对于变长字段来说，都会有2个字节的空间来存储该变长列的实际长度。</li>
+</ul>
+<p>8、ref</p>
+<p>当使用索引列等值匹配的条件去执行查询时，也就是在访问方法是<code>const</code>、<code>eq_ref</code>、<code>ref</code>、<code>ref_or_null</code>、<code>unique_subquery</code>、<code>index_subquery</code>其中之一时，<code>ref</code>列展示的就是与索引列作等值匹配的东东是个啥，比如只是一个常数或者是某个列</p>
+<p>9、rows</p>
+<p>如果查询优化器决定使用全表扫描的方式对某个表执行查询时，执行计划的<code>rows</code>列就代表预计需要扫描的行数，如果使用索引来执行查询时，执行计划的<code>rows</code>列就代表预计扫描的索引记录行数。</p>
+<p>10、filtered</p>
+<p>就是<code>MySQL</code>在计算驱动表扇出时采用的一个策略：</p>
+<ul>
+<li>如果使用的是全表扫描的方式执行的单表查询，那么计算驱动表扇出时需要估计出满足搜索条件的记录到底有多少条。</li>
+<li>如果使用的是索引执行的单表扫描，那么计算驱动表扇出的时候需要估计出满足除使用到对应索引的搜索条件外的其他搜索条件的记录有多少条。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> s1 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> s2 <span class="keyword">ON</span> s1.key1 <span class="operator">=</span> s2.key1 <span class="keyword">WHERE</span> s1.common_field <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">----+-------------+-------+------------+------+---------------+----------+---------+-------------------+------+----------+-------------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> select_type <span class="operator">|</span> <span class="keyword">table</span> <span class="operator">|</span> partitions <span class="operator">|</span> type <span class="operator">|</span> possible_keys <span class="operator">|</span> key      <span class="operator">|</span> key_len <span class="operator">|</span> <span class="keyword">ref</span>               <span class="operator">|</span> <span class="keyword">rows</span> <span class="operator">|</span> filtered <span class="operator">|</span> Extra       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+-------------+-------+------------+------+---------------+----------+---------+-------------------+------+----------+-------------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> SIMPLE      <span class="operator">|</span> s1    <span class="operator">|</span> <span class="keyword">NULL</span>       <span class="operator">|</span> <span class="keyword">ALL</span>  <span class="operator">|</span> idx_key1      <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span> <span class="keyword">NULL</span>              <span class="operator">|</span> <span class="number">9688</span> <span class="operator">|</span>    <span class="number">10.00</span> <span class="operator">|</span> <span class="keyword">Using</span> <span class="keyword">where</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> SIMPLE      <span class="operator">|</span> s2    <span class="operator">|</span> <span class="keyword">NULL</span>       <span class="operator">|</span> <span class="keyword">ref</span>  <span class="operator">|</span> idx_key1      <span class="operator">|</span> idx_key1 <span class="operator">|</span> <span class="number">303</span>     <span class="operator">|</span> xiaohaizi.s1.key1 <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span>   <span class="number">100.00</span> <span class="operator">|</span> <span class="keyword">NULL</span>        <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+-------------+-------+------------+------+---------------+----------+---------+-------------------+------+----------+-------------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<p>从执行计划中可以看出来，查询优化器打算把<code>s1</code>当作驱动表，<code>s2</code>当作被驱动表。我们可以看到驱动表<code>s1</code>表的执行计划的<code>rows</code>列为<code>9688</code>， <code>filtered</code>列为<code>10.00</code>，这意味着驱动表<code>s1</code>的扇出值就是<code>9688 × 10.00% = 968.8</code>，这说明还要对被驱动表执行大约<code>968</code>次查询。</p>
+<p>11、extra</p>
+<p>显示额外信息</p>
+<h2 id="14、缓存"><a href="#14、缓存" class="headerlink" title="14、缓存"></a>14、缓存</h2><p>简介：<code>InnoDB</code>存储引擎在处理客户端的请求时，当需要访问某个页的数据时，就会把完整的页的数据全部加载到内存中，也就是说即使我们只需要访问一个页的一条记录，那也需要先把整个页的数据加载到内存中。将整个页加载到内存中后就可以进行读写访问了，在进行完读写访问之后并不着急把该页对应的内存空间释放掉，而是将其<code>缓存</code>起来，这样将来有请求再次访问该页面时，就可以省去磁盘<code>IO</code>的开销了。</p>
+<h3 id="free链表"><a href="#free链表" class="headerlink" title="free链表"></a>free链表</h3><p>free链表连接了缓存中空闲的页块的控制块，每次申请的时候直接在free链表中找就行了，不需要遍历整个缓存区域了。</p>
+<h3 id="flush链表"><a href="#flush链表" class="headerlink" title="flush链表"></a>flush链表</h3><p>对于已经修改过的页就会链接到一个flush链表中，方便刷新回磁盘。</p>
+<h3 id="hash表"><a href="#hash表" class="headerlink" title="hash表"></a>hash表</h3><p>为了快速定位某个页是否被加载到<code>Buffer Pool</code>，使用<code>表空间号 + 页号</code>作为<code>key</code>，缓存页作为<code>value</code>，建立哈希表。</p>
+<h3 id="LRU链表"><a href="#LRU链表" class="headerlink" title="LRU链表"></a>LRU链表</h3><p>最近最久未访问，在操作系统中页面置换算法中有这个概念。</p>
+<p>在MySQL中缓存也通过LRU来管理，并分为两种类型：yong和old</p>
+<p>对于yong类型保存的是经常使用的，热点数据。</p>
+<p>old类型则是用于零时存放，例如预加载，全局扫描时存放的页块。</p>
+<p>old区数据在经过一段时间后被访问到了就加入yong类型的首部。</p>
+<blockquote>
+<p>为什么要经过一段时间：由于全局扫描对一个页表要进行多次访问，但是这个页表马上就不会用了，所以对于全局多次访问的页表不应该加入yong类型。</p>
+</blockquote>
+<h2 id="15、事务"><a href="#15、事务" class="headerlink" title="15、事务"></a>15、事务</h2><p>概念：需要保证<code>原子性</code>、<code>隔离性</code>、<code>一致性</code>和<code>持久性</code>的一个或多个数据库操作称之为一个<code>事务</code></p>
+<h3 id="事物的状态"><a href="#事物的状态" class="headerlink" title="事物的状态"></a>事物的状态</h3><ul>
+<li><p>活动的（active）</p>
+<p>事务对应的数据库操作正在执行过程中时，我们就说该事务处在<code>活动的</code>状态。</p>
+</li>
+<li><p>部分提交的（partially committed）</p>
+<p>当事务中的最后一个操作执行完成，但由于操作都在内存中执行，所造成的影响并<strong>没有刷新到磁盘时</strong>，我们就说该事务处在<code>部分提交的</code>状态。</p>
+</li>
+<li><p>失败的（failed）</p>
+<p>当事务处在<code>活动的</code>或者<code>部分提交的</code>状态时，可能遇到了某些错误（数据库自身的错误、操作系统错误或者直接断电等）而无法继续执行，或者人为的停止当前事务的执行，我们就说该事务处在<code>失败的</code>状态。</p>
+</li>
+<li><p>中止的（aborted）</p>
+<p>如果事务执行了半截而变为<code>失败的</code>状态，比如我们前边唠叨的狗哥向猫爷转账的事务，当狗哥账户的钱被扣除，但是猫爷账户的钱没有增加时遇到了错误，从而当前事务处在了<code>失败的</code>状态，那么就需要把已经修改的狗哥账户余额调整为未转账之前的金额，换句话说，就是要撤销失败事务对当前数据库造成的影响。书面一点的话，我们把这个撤销的过程称之为<code>回滚</code>。当<code>回滚</code>操作执行完毕时，也就是数据库恢复到了执行事务之前的状态，我们就说该事务处在了<code>中止的</code>状态。</p>
+</li>
+<li><p>提交的（committed）</p>
+<p>当一个处在<code>部分提交的</code>状态的事务将修改过的数据都同步到磁盘上之后，我们就可以说该事务处在了<code>提交的</code>状态。</p>
+</li>
+</ul>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/stuts.jpg" alt="image_1d7bvq3401fpe1eum1d7qkop1f479.png-69.6kB"></p>
+<h3 id="事务语句"><a href="#事务语句" class="headerlink" title="事务语句"></a>事务语句</h3><p><strong>开启事务</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span> [WORK];</span><br></pre></td></tr></table></figure>
+<p><code>BEGIN</code>语句代表开启一个事务，后边的单词<code>WORK</code>可有可无。开启事务后，就可以继续写若干条语句，这些语句都属于刚刚开启的这个事务。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br></pre></td></tr></table></figure>
+<p><code>START TRANSACTION</code>语句和<code>BEGIN</code>语句有着相同的功效，都标志着开启一个事务</p>
+<ul>
+<li><p><code>READ ONLY</code>：标识当前事务是一个只读事务，也就是属于该事务的数据库操作只能读取数据，而不能修改数据。</p>
+<blockquote>
+<p>小贴士：其实只读事务中只是不允许修改那些其他事务也能访问到的表中的数据，对于临时表来说（我们使用CREATE TMEPORARY TABLE创建的表），由于它们只能在当前会话中可见，所以只读事务其实也是可以对临时表进行增、删、改操作的。</p>
+</blockquote>
+</li>
+<li><p><code>READ WRITE</code>：标识当前事务是一个读写事务，也就是属于该事务的数据库操作既可以读取数据，也可以修改数据。</p>
+</li>
+<li><p><code>WITH CONSISTENT SNAPSHOT</code>：启动一致性读（先不用关心啥是个一致性读，后边的章节才会唠叨）。</p>
+</li>
+</ul>
+<p>比如我们想开启一个只读事务的话，直接把<code>READ ONLY</code>这个修饰符加在<code>START TRANSACTION</code>语句后边就好，比如这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION READ <span class="keyword">ONLY</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>提交事务</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMMIT</span> [WORK]</span><br></pre></td></tr></table></figure>
+<p><code>COMMIT</code>语句就代表提交一个事务，后边的<code>WORK</code>可有可无</p>
+<p><strong>中止事务</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ROLLBACK</span> [WORK]</span><br></pre></td></tr></table></figure>
+<p><code>ROLLBACK</code>语句就代表中止并回滚一个事务，后边的<code>WORK</code>可有可无类似的</p>
+<h2 id="16、redo日志"><a href="#16、redo日志" class="headerlink" title="16、redo日志"></a>16、redo日志</h2><p>在系统崩溃重启时需要按照保存好的内容所记录的步骤重新更新数据页，所以上述内容也被称之为<code>重做日志</code>，英文名为<code>redo log</code></p>
+<p>redo日志的好处：</p>
+<p>1、redo日志占用的空间小，比起刷新一个页面要小的多</p>
+<p>2、redo日志是顺序io，比起刷新一个页（随机io）相比，redo的顺序io快的多。</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210313145503124.png" alt="image-20210313145503124">1、type：redo日志的类型</p>
+<p>2、space ID：表空间ID</p>
+<p>3、page number ：页号</p>
+<p>4、data ：具体数据内容</p>
+<p>redo日志也不是直接存入磁盘，现存入一个缓存区，等需要存入磁盘时再统一刷新回磁盘</p>
+<h2 id="17、undo日志"><a href="#17、undo日志" class="headerlink" title="17、undo日志"></a>17、undo日志</h2><p>事务id：当一个事务首次进行了增删改操作的时候会被分配一个事务id</p>
+<p>插入操作的undo日志：</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314084312355.png" alt="image-20210314084312355"></p>
+<p>每个行的隐藏属性roll_pointer指向其对应的undo日志。</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314085418475.png" alt="image-20210314085418475"></p>
+<p>删除操作的undo日志：</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314085554860.png" alt="image-20210314085554860"></p>
+<p>在对一条记录进行<code>delete mark</code>操作前，需要把该记录的旧的<code>trx_id</code>和<code>roll_pointer</code>隐藏列的值都给记到对应的<code>undo日志</code>中来，就是我们图中显示的<code>old trx_id</code>和<code>old roll_pointer</code>属性。</p>
+<p>更新操作下（不更新主键）的undo日志：</p>
+<p><img src="/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/image-20210314091137560.png" alt="image-20210314091137560"></p>
+<p>在这种操作下之前的行就会在链表中移除了，加入到垃圾链表。</p>
+<p>在修改主键的情况下则不会加入垃圾链表，只是进行了delete mark（删除标记）操作。</p>
+<h2 id="18、事务的隔离级别和MVCC"><a href="#18、事务的隔离级别和MVCC" class="headerlink" title="18、事务的隔离级别和MVCC"></a>18、事务的隔离级别和MVCC</h2><p>脏写：如果一个事务修改了另一个未提交事务修改过的数据，那就意味着发生了<code>脏写</code></p>
+<p>脏读：读取其他事务未提交的数据</p>
+<p>不可重复读：读取其他事务已提交的数据，数据发生了变化。</p>
+<p>幻读：事务前后两次读取数据量不一致，后一次读取比前一次读取多（少不是幻读）</p>
+<p>四种隔离级别：</p>
+<ul>
+<li><code>READ UNCOMMITTED</code>：未提交读。</li>
+<li><code>READ COMMITTED</code>：已提交读。</li>
+<li><code>REPEATABLE READ</code>：可重复读。</li>
+<li><code>SERIALIZABLE</code>：可串行化。</li>
+</ul>
+<h3 id="MVCC原理"><a href="#MVCC原理" class="headerlink" title="MVCC原理"></a>MVCC原理</h3><p>对于使用<code>READ UNCOMMITTED</code>隔离级别的事务来说，由于可以读到未提交事务修改过的记录，所以直接读取记录的最新版本就好了；对于使用<code>SERIALIZABLE</code>隔离级别的事务来说，设计<code>InnoDB</code>的大叔规定使用加锁的方式来访问记录（加锁是啥我们后续文章中说哈）；对于使用<code>READ COMMITTED</code>和<code>REPEATABLE READ</code>隔离级别的事务来说，都必须保证读到已经提交了的事务修改过的记录，也就是说假如另一个事务已经修改了记录但是尚未提交，是不能直接读取最新版本的记录的，核心问题就是：需要判断一下版本链中的哪个版本是当前事务可见的。为此，设计<code>InnoDB</code>的大叔提出了一个<code>ReadView</code>的概念，这个<code>ReadView</code>中主要包含4个比较重要的内容：</p>
+<ul>
+<li><code>m_ids</code>：表示在生成<code>ReadView</code>时当前系统中活跃的读写事务的<code>事务id</code>列表。</li>
+<li><code>min_trx_id</code>：表示在生成<code>ReadView</code>时当前系统中活跃的读写事务中最小的<code>事务id</code>，也就是<code>m_ids</code>中的最小值。</li>
+<li><code>max_trx_id</code>：表示生成<code>ReadView</code>时系统中应该分配给下一个事务的<code>id</code>值。</li>
+</ul>
+<p><strong><code>creator_trx_id</code>：表示生成该<code>ReadView</code>的事务的<code>事务id</code>。</strong></p>
+<p>有了这个<code>ReadView</code>，这样在访问某条记录时，只需要按照下边的步骤判断记录的某个版本是否可见：</p>
+<ul>
+<li>如果被访问版本的<code>trx_id</code>（每个行都有的一个隐藏属性）属性值与<code>ReadView</code>中的<code>creator_trx_id</code>值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问。</li>
+<li>如果被访问版本的<code>trx_id</code>属性值小于<code>ReadView</code>中的<code>min_trx_id</code>值，表明生成该版本的事务在当前事务生成<code>ReadView</code>前已经提交，所以该版本可以被当前事务访问。</li>
+<li>如果被访问版本的<code>trx_id</code>属性值大于或等于<code>ReadView</code>中的<code>max_trx_id</code>值，表明生成该版本的事务在当前事务生成<code>ReadView</code>后才开启，所以该版本不可以被当前事务访问。</li>
+<li>如果被访问版本的<code>trx_id</code>属性值在<code>ReadView</code>的<code>min_trx_id</code>和<code>max_trx_id</code>之间，那就需要判断一下<code>trx_id</code>属性值是不是在<code>m_ids</code>列表中，如果在，说明创建<code>ReadView</code>时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建<code>ReadView</code>时生成该版本的事务已经被提交，该版本可以被访问。</li>
+</ul>
+<p>在read committed 情况下每次读取的时候都会生成一个新的readview，里面的m_ids都会重新加载</p>
+<p>在repeatable read 中只会在第一次读取的时候生成readview，其m_ids已经锁定，也就可重复读了。</p>
+<h2 id="19、锁"><a href="#19、锁" class="headerlink" title="19、锁"></a>19、锁</h2><h3 id="共享锁和独占锁"><a href="#共享锁和独占锁" class="headerlink" title="共享锁和独占锁"></a>共享锁和独占锁</h3><p>共享锁（s锁）也就是读锁，读取该记录的事务都需要获取s锁。</p>
+<p>独占锁（x锁）：也就是写锁，修改记录的事务都需要获取x锁。</p>
+<p>s锁可以和s锁共享。x锁不能共享。</p>
+<p>对读取的记录加<code>X锁</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure>
+<p>也就是在普通的<code>SELECT</code>语句后边加<code>FOR UPDATE</code>，如果当前事务执行了该语句，那么它会为读取到的记录加<code>X锁</code>，这样既不允许别的事务获取这些记录的<code>S锁</code>（比方说别的事务使用<code>SELECT ... LOCK IN SHARE MODE</code>语句来读取这些记录），也不允许获取这些记录的<code>X锁</code>（比如说使用<code>SELECT ... FOR UPDATE</code>语句来读取这些记录，或者直接修改这些记录）。如果别的事务想要获取这些记录的<code>S锁</code>或者<code>X锁</code>，那么它们会阻塞，直到当前事务提交之后将这些记录上的<code>X锁</code>释放掉。</p>
+<h3 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h3><p>顾名思义就是对整个表加锁，也分为s锁和x锁。</p>
+<p>但是当有一条记录在修改时，此时不能对这个表上表锁。</p>
+<p>所以mysql提出了意向锁</p>
+<h3 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h3><ul>
+<li>意向共享锁，英文名：<code>Intention Shared Lock</code>，简称<code>IS锁</code>。当事务准备在某条记录上加<code>S锁</code>时，需要先在表级别加一个<code>IS锁</code>。</li>
+<li>意向独占锁，英文名：<code>Intention Exclusive Lock</code>，简称<code>IX锁</code>。当事务准备在某条记录上加<code>X锁</code>时，需要先在表级别加一个<code>IX锁</code>。</li>
+<li>插入意向锁，英文名：<code>Insert Intention Locks</code>, 我们说一个事务在插入一条记录时需要判断一下插入位置是不是被别的事务加了所谓的<code>gap锁</code>（<code>next-key锁</code>也包含<code>gap锁</code>，后边就不强调了），如果有的话，插入操作需要等待，直到拥有<code>gap锁</code>的那个事务提交。但是设计<code>InnoDB</code>的大叔规定事务在等待的时候也需要在内存中生成一个<code>锁结构</code>，表明有事务想在某个<code>间隙</code>中插入新记录，但是现在在等待。设计<code>InnoDB</code>的大叔就把这种类型的锁命名为<code>Insert Intention Locks</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>兼容性</th>
+<th><code>X</code>（独占锁）</th>
+<th><code>IX</code>（意向独占锁）</th>
+<th><code>S</code>（共享锁）</th>
+<th><code>IS</code>（意向共享锁）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>X</code></td>
+<td>不兼容</td>
+<td>不兼容</td>
+<td>不兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td><code>IX</code></td>
+<td>不兼容</td>
+<td>兼容</td>
+<td>不兼容</td>
+<td>兼容</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>不兼容</td>
+<td>不兼容</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+<tr>
+<td><code>IS</code></td>
+<td>不兼容</td>
+<td>兼容</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+</tbody></table>
+<h3 id="元数据锁"><a href="#元数据锁" class="headerlink" title="元数据锁"></a>元数据锁</h3><p>在对某个表执行一些诸如<code>ALTER TABLE</code>、<code>DROP TABLE</code>这类的<code>DDL</code>语句时，其他事务对这个表并发执行诸如<code>SELECT</code>、<code>INSERT</code>、<code>DELETE</code>、<code>UPDATE</code>的语句会发生阻塞，同理，某个事务中对某个表执行<code>SELECT</code>、<code>INSERT</code>、<code>DELETE</code>、<code>UPDATE</code>语句时，在其他会话中对这个表执行<code>DDL</code>语句也会发生阻塞。这个过程其实是通过在<code>server层</code>使用一种称之为<code>元数据锁</code></p>
+<h3 id="AUTO-INC锁"><a href="#AUTO-INC锁" class="headerlink" title="AUTO-INC锁"></a>AUTO-INC锁</h3><p>在执行插入语句时就在表级别加一个<code>AUTO-INC</code>锁，然后为每条待插入记录的<code>AUTO_INCREMENT</code>修饰的列分配递增的值，在该语句执行结束后，再把<code>AUTO-INC</code>锁释放掉。这样一个事务在持有<code>AUTO-INC</code>锁的过程中，其他事务的插入语句都要被阻塞，可以保证一个语句中分配的递增值是连续的。</p>
+<h3 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h3><p>记录锁（record lock）：直接锁住该条记录。</p>
+<p>间隙锁（gap lock） ： 锁住的时两条记录之间的间隙。</p>
+<p>next-key-lock： 对一条记录既上记录锁又上间隙锁。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一个没有感情的点赞机器<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/17/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2021-02-17T12:37:46.123Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-17</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/11/MySQL%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/09/HashMap%E7%9A%84put%E8%BF%87%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2021-02-09T03:21:01.472Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/02/%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%ACk%E5%A4%A7/" class="archive-article-date">
-  	<time datetime="2021-02-02T07:16:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-02</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/02/%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%ACk%E5%A4%A7/">两个有序数组的第k大</a>
-    </h1>
+    <a href="/2021/04/01/%E7%BE%8E%E5%9B%A2%E4%B8%80%E9%9D%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
+  
+    <a href="/2021/02/24/sychronized%E9%94%81%E4%BC%98%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sychronized锁优化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/" class="archive-article-date">
-  	<time datetime="2021-02-01T03:52:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-01</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/01/%E4%B8%80%E8%87%B4%E6%80%A7hash/">一致性hash</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/27/%E7%AE%97%E6%B3%95-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2021-01-27T04:25:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/27/%E7%AE%97%E6%B3%95-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">算法-快速排序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/26/java%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2021-01-26T04:03:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/26/java%E9%9B%86%E5%90%88/">java集合</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/25/MySql/" class="archive-article-date">
-  	<time datetime="2021-01-25T02:51:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/25/MySql/">MySql</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/25/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2021-01-25T02:09:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/25/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">布隆过滤器</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/24/JVM/" class="archive-article-date">
-  	<time datetime="2021-01-24T03:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/24/JVM/">JVM</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/" class="archive-article-date">
-  	<time datetime="2021-01-23T07:11:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/23/JUC%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89-CAS/">JUC学习（七）-CAS</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -436,8 +748,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
